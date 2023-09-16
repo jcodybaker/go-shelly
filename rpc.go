@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+
+	"github.com/google/uuid"
 )
 
 const (
@@ -41,6 +43,7 @@ func (r *RPCRequest) Raw() (*RawRPCRequest, error) {
 	}, nil
 }
 
+// InitID sets an randomoized ID on the RPCRequest.
 func (r *RPCRequest) InitID() error {
 	id, err := uuid.NewRandom()
 	if err != nil {
