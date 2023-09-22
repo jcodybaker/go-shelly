@@ -92,10 +92,10 @@ type ShellyCheckForUpdateResponse struct {
 
 type FirmwareUpdateVersion struct {
 	// Version is the new version available.
-	Version string `json:"version"`
+	Version string `json:"version,omitempty"`
 
 	// BuildID is the build ID of the update.
-	BuildID string `json:"build_id"`
+	BuildID string `json:"build_id,omitempty"`
 }
 
 type ShellyUpdateRequest struct {

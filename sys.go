@@ -1,9 +1,15 @@
 package shelly
 
+import "encoding/json"
+
 type SysGetConfigRequest struct{}
 
 func (r *SysGetConfigRequest) Method() string {
 	return "Sys.GetConfig"
+}
+
+func (r *SysGetConfigRequest) NewResponse() *SysConfig {
+	return &SysConfig{}
 }
 
 type SysSetConfigRequest struct {
@@ -21,6 +27,10 @@ func (r *SysGetStatusRequest) Method() string {
 	return "Sys.GetStatus"
 }
 
+func (r *SysGetStatusRequest) NewResponse() *SysStatus {
+	return &SysStatus{}
+}
+
 type SysConfig struct {
 	// Device contains information about the device.
 	Device *SysDeviceConfig `json:"device,omitempty"`
@@ -33,7 +43,7 @@ type SysConfig struct {
 
 	// UI_Data contains user interface data. NOTE: the existance of this field is documented,
 	// but not the contents.
-	UI_Data struct{} `json:"ui_data,omitempty"`
+	UI_Data json.RawMessage `json:"ui_data,omitempty"`
 
 	// RPC_UDP is the configuration for the RPC over UDP.
 	RPC_UDP *SysRPC_UDP_Config `json:"rpc_udp,omitempty"`
@@ -50,7 +60,7 @@ type SysConfig struct {
 
 type SysDeviceConfig struct {
 	// Name of the device.
-	Name string `json:"name"`
+	Name *string `json:"name"`
 
 	// EcoMode (experimental) decreases power consumption when set to true, at the cost of reduced
 	// execution speed and increased network latency.
@@ -63,14 +73,14 @@ type SysDeviceConfig struct {
 	FW_ID string `json:"fw_id"`
 
 	// Profile is the name of the device profile (only applicable for multi-profile devices)
-	Profile string `json:"profile"`
+	Profile *string `json:"profile,omitempty"`
 
 	// Discoverable if true, device is shown in 'Discovered devices'. If false, the device is hidden.
 	Discoverable bool `json:"discoverable"`
 
 	// AddOnType enables/disables addon board (if supported). Range of values: sensor, prooutput;
 	// null to disable.
-	AddOnType *string `json:"addon_type"`
+	AddOnType *string `json:"addon_type,omitempty"`
 }
 
 type SysLocationConfig struct {
@@ -93,6 +103,12 @@ type SysDebugConfig struct {
 
 	// UDP contains configuration of logs streamed over UDP
 	UDP SysDebugConfigUDP `json:"udp"`
+
+	// Level is not documented but appears in output.
+	Level int `json:"level"`
+
+	// FileLevel is not documented but appears in output.
+	FileLevel interface{} `json:"file_level"`
 }
 
 type SysDebugConfigMQTT struct {
@@ -112,7 +128,7 @@ type SysDebugConfigUDP struct {
 
 type SysRPC_UDP_Config struct {
 	// DstAddr is the destination address for UDP.
-	DstAddr string `json:"dst_addr"`
+	DstAddr *string `json:"dst_addr"`
 
 	// ListenPort is the port number for inbound UDP RPC channel, null disables. Restart is
 	// required for changes to apply
@@ -158,7 +174,7 @@ type SysStatus struct {
 	CfgRev int `json:"cfg_rev"`
 
 	// KVRev is the KVS (Key-Value Store) revision number.
-	KVRev int `json:"kv_rev"`
+	KVRev int `json:"kvs_rev"`
 
 	// SchedulesRev is the revision number, present if schedules are enabled.
 	ScheduleRev *int `json:"schedule_rev"`
@@ -169,23 +185,23 @@ type SysStatus struct {
 	// Information about available updates, similar to the one returned by Shelly.CheckForUpdate
 	// (empty object: {}, if no updates available). This information is automatically updated every
 	// 24 hours. Note that build_id and url for an update are not displayed here
-	AvailableUpdates struct {
+	AvailableUpdates *struct {
 		// Stable indicates the new stable version of the firmware.
-		Stable FirmwareUpdateVersion
+		Stable *FirmwareUpdateVersion `json:"stable,omitempty"`
 
 		// Beta indicates the new beta version of the firmware.
-		Beta FirmwareUpdateVersion
-	} `json:"available_updates"`
+		Beta *FirmwareUpdateVersion `json:"beta,omitempty"`
+	} `json:"available_updates,omitempty"`
 
 	// WakeUpReason contains information about boot type and cause (only for battery-operated devices).
-	WakeUpReason WakeUpReason `json:"wakeup_reason"`
+	WakeUpReason *WakeUpReason `json:"wakeup_reason,omitempty"`
 
 	// Period (in seconds) at which device wakes up and sends "keep-alive" packet to cloud,
 	// readonly. Count starts from last full wakeup.
-	WakeUpPeriod float64 `json:"wakeup_period"`
+	WakeUpPeriod float64 `json:"wakeup_period,omitempty"`
 
 	// SafeMode is True if device is oprating in Safe Mode and is only present in this mode.
-	SafeMode *bool
+	SafeMode *bool `json:"safe_mode,omitempty"`
 }
 
 type WakeUpReason struct {
