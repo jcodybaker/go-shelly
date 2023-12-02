@@ -16,16 +16,26 @@ import (
 
 func GetCallWithVerify(t *testing.T, req shelly.RPCRequestBody, respBody interface{}) {
 	ctx := context.Background()
-	c, err := mgrpc.New(ctx, "http://192.168.1.62/rpc", mgrpc.UseHTTPPost())
+	c, err := mgrpc.New(ctx, "http://192.168.1.10/rpc", mgrpc.UseHTTPPost())
 	require.NoError(t, err)
 	defer c.Disconnect(ctx)
+	args, err := json.Marshal(req)
+	require.NoError(t, err)
 	command := &frame.Command{
-		Cmd: req.Method(),
+		Cmd:  req.Method(),
+		Args: json.RawMessage(args),
 	}
 	resp, err := c.Call(ctx, "", command, nil)
 	require.NoError(t, err)
 	fmt.Println(string(resp.Response))
-	require.NoError(t, json.Unmarshal(resp.Response, &respBody))
+	require.NoErrorf(
+		t,
+		json.Unmarshal(resp.Response, &respBody),
+		"got resp code: %d (%s) body: %s",
+		resp.Status,
+		resp.StatusMsg,
+		resp.Response,
+	)
 
 	// The reencoded JSON *SHOULD* match.
 	// NOTE: in practice there seem to be some undocumented fields and inconsistency in what
