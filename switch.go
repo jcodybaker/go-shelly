@@ -1,5 +1,12 @@
 package shelly
 
+import (
+	"context"
+
+	"github.com/mongoose-os/mos/common/mgrpc"
+	"github.com/mongoose-os/mos/common/mgrpc/frame"
+)
+
 type SwitchGetConfigRequest struct {
 	// ID of the switch component instance.
 	ID int `json:"id"`
@@ -7,6 +14,19 @@ type SwitchGetConfigRequest struct {
 
 func (r *SwitchGetConfigRequest) Method() string {
 	return "Switch.GetConfig"
+}
+
+func (r *SwitchGetConfigRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*SwitchConfig,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
 }
 
 func (r *SwitchGetConfigRequest) NewResponse() *SwitchConfig {
@@ -25,6 +45,19 @@ func (r *SwitchSetConfigRequest) Method() string {
 	return "Switch.SetConfig"
 }
 
+func (r *SwitchSetConfigRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*SwitchConfig,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
+}
+
 func (r *SwitchSetConfigRequest) NewResponse() *SwitchConfig {
 	return &SwitchConfig{}
 }
@@ -36,6 +69,19 @@ type SwitchGetStatusRequest struct {
 
 func (r *SwitchGetStatusRequest) Method() string {
 	return "Switch.GetStatus"
+}
+
+func (r *SwitchGetStatusRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*SwitchStatus,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
 }
 
 func (r *SwitchGetStatusRequest) NewResponse() *SwitchStatus {
@@ -57,6 +103,19 @@ func (r *SwitchSetRequest) Method() string {
 	return "Switch.Set"
 }
 
+func (r *SwitchSetRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*SwitchActionResponse,
+	*frame.Response,
+	error,
+) {
+	resp := &SwitchActionResponse{}
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
+}
+
 func (r *SwitchSetRequest) NewResponse() *SwitchActionResponse {
 	return &SwitchActionResponse{}
 }
@@ -68,6 +127,19 @@ type SwitchToggleRequest struct {
 
 func (r *SwitchToggleRequest) Method() string {
 	return "Switch.Toggle"
+}
+
+func (r *SwitchToggleRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*SwitchActionResponse,
+	*frame.Response,
+	error,
+) {
+	resp := &SwitchActionResponse{}
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
 }
 
 func (r *SwitchToggleRequest) NewResponse() *SwitchActionResponse {

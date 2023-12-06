@@ -1,11 +1,30 @@
 package shelly
 
-import "encoding/json"
+import (
+	"context"
+	"encoding/json"
+
+	"github.com/mongoose-os/mos/common/mgrpc"
+	"github.com/mongoose-os/mos/common/mgrpc/frame"
+)
 
 type SysGetConfigRequest struct{}
 
 func (r *SysGetConfigRequest) Method() string {
 	return "Sys.GetConfig"
+}
+
+func (r *SysGetConfigRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*SysConfig,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
 }
 
 func (r *SysGetConfigRequest) NewResponse() *SysConfig {
@@ -25,6 +44,19 @@ type SysGetStatusRequest struct{}
 
 func (r *SysGetStatusRequest) Method() string {
 	return "Sys.GetStatus"
+}
+
+func (r *SysGetStatusRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*SysStatus,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
 }
 
 func (r *SysGetStatusRequest) NewResponse() *SysStatus {
