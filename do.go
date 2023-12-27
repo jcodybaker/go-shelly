@@ -9,6 +9,11 @@ import (
 	"github.com/mongoose-os/mos/common/mgrpc/frame"
 )
 
+const (
+	// StatusIDNotFound is the code returned when a request is made for an unknown id.
+	StatusIDNotFound = -105
+)
+
 type BadStatusError struct {
 	Status int
 	Msg    string
