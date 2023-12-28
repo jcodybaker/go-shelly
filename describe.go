@@ -1,5 +1,15 @@
 package shelly
 
+import "errors"
+
+var (
+	// ErrUnknownDeviceApp is returned when the app cannot be resolved to a spec.
+	ErrUnknownDeviceApp = errors.New("unable to resolve device `app` to spec: unknown `app`")
+
+	// ErrUnknownDeviceProfile is returned when a device
+	ErrUnknownDeviceProfile = errors.New("unable to resolve device profile to spec: unknown profile")
+)
+
 // DeviceSpecs describes the device abilities.
 type DeviceSpecs struct {
 	// Profiles describes the possible profiles for the device.
@@ -46,12 +56,16 @@ func (s *DeviceSpecs) IsMultiProfile() bool {
 	return len(s.Profiles) > 0
 }
 
-// MDNSAppToDeviceSpecs translates the "app" field from an mDNS response to a device. For multi-profile
-// devices, the aspirational capacity is returned but the actual specs depend on the active profile.
-func MDNSAppToDeviceSpecs(mdnsApp string) (DeviceSpecs, bool) {
+// MDNSAppToDeviceSpecs translates the "app" field from an mDNS response to a device. The
+// "profile" parameter is optional. For multi-profile devices, without a profile parameter
+// the aspirational capacity is returned but the actual specs depend on the active profile.
+func MDNSAppToDeviceSpecs(mdnsApp, profile string) (DeviceSpecs, error) {
 	switch mdnsApp {
 	// These device "app" values have been confirmed.
 	case "Pro3":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Inputs:             3,
 			Switches:           3,
@@ -59,8 +73,11 @@ func MDNSAppToDeviceSpecs(mdnsApp string) (DeviceSpecs, bool) {
 			Wifi:               true,
 			Ethernet:           true,
 			BluetoothLowEnergy: true,
-		}, true
+		}, nil
 	case "Pro4PM":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Inputs:             4,
 			Switches:           4,
@@ -70,8 +87,11 @@ func MDNSAppToDeviceSpecs(mdnsApp string) (DeviceSpecs, bool) {
 			Ethernet:           true,
 			BluetoothLowEnergy: true,
 			UI:                 true,
-		}, true
+		}, nil
 	case "PlugUS", "PlugUK", "PlugS", "PlugIT":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Inputs:             1,
 			Switches:           1,
@@ -79,8 +99,11 @@ func MDNSAppToDeviceSpecs(mdnsApp string) (DeviceSpecs, bool) {
 			SwitchEnergy:       true,
 			Wifi:               true,
 			BluetoothLowEnergy: true,
-		}, true
+		}, nil
 	case "PlusHT":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Humidity:              true,
 			Temperature:           true,
@@ -88,18 +111,24 @@ func MDNSAppToDeviceSpecs(mdnsApp string) (DeviceSpecs, bool) {
 			DevicePower:           true,
 			Wifi:                  true,
 			BluetoothLowEnergy:    true,
-		}, true
+		}, nil
 
 	// These names are best guesses.
 	case "Plus1", "Plus1Mini":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Inputs:             1,
 			Switches:           1,
 			Scripts:            10,
 			Wifi:               true,
 			BluetoothLowEnergy: true,
-		}, true
+		}, nil
 	case "Plus1PM", "Plus1PMMini":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Inputs:             1,
 			Switches:           1,
@@ -107,56 +136,99 @@ func MDNSAppToDeviceSpecs(mdnsApp string) (DeviceSpecs, bool) {
 			Scripts:            10,
 			Wifi:               true,
 			BluetoothLowEnergy: true,
-		}, true
+		}, nil
 	case "Plus2PM":
-		return DeviceSpecs{
-			Profiles:           []string{"switch", "cover"},
-			Covers:             1,
-			Inputs:             2,
-			Switches:           2,
-			SwitchEnergy:       true,
-			Scripts:            10,
-			Wifi:               true,
-			BluetoothLowEnergy: true,
-		}, true
+		switch profile {
+		case "":
+			return DeviceSpecs{
+				Profiles:           []string{"switch", "cover"},
+				Covers:             1,
+				Inputs:             2,
+				Switches:           2,
+				SwitchEnergy:       true,
+				Scripts:            10,
+				Wifi:               true,
+				BluetoothLowEnergy: true,
+			}, nil
+		case "switch":
+			return DeviceSpecs{
+				Profiles:           []string{"switch", "cover"},
+				Inputs:             2,
+				Switches:           2,
+				SwitchEnergy:       true,
+				Scripts:            10,
+				Wifi:               true,
+				BluetoothLowEnergy: true,
+			}, nil
+		case "cover":
+			return DeviceSpecs{
+				Profiles:           []string{"switch", "cover"},
+				Inputs:             2,
+				Covers:             1,
+				SwitchEnergy:       true,
+				Scripts:            10,
+				Wifi:               true,
+				BluetoothLowEnergy: true,
+			}, nil
+		default:
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 	case "PlusI4":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Inputs:             4,
 			Scripts:            10,
 			Wifi:               true,
 			BluetoothLowEnergy: true,
-		}, true
+		}, nil
 	case "PlusSmoke":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Wifi:               true,
 			BluetoothLowEnergy: true,
 			DevicePower:        true,
 			Smoke:              true,
-		}, true
+		}, nil
 	case "PlusWallDimmer":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Lights:             1,
 			Scripts:            10,
 			Wifi:               true,
 			BluetoothLowEnergy: true,
 			WallDimmerUI:       true,
-		}, true
+		}, nil
 	case "Plus0-10VDimmer":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Lights:             1,
 			Inputs:             2,
 			Scripts:            10,
 			Wifi:               true,
 			BluetoothLowEnergy: true,
-		}, true
+		}, nil
 	case "PlusPMMini":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			PM1:                true,
 			Scripts:            10,
 			Wifi:               true,
 			BluetoothLowEnergy: true,
-		}, true
+		}, nil
 	case "Pro1":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Inputs:             2,
 			Switches:           1,
@@ -164,8 +236,11 @@ func MDNSAppToDeviceSpecs(mdnsApp string) (DeviceSpecs, bool) {
 			Wifi:               true,
 			Ethernet:           true,
 			BluetoothLowEnergy: true,
-		}, true
+		}, nil
 	case "Pro1PM":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Inputs:             2,
 			Switches:           1,
@@ -174,8 +249,11 @@ func MDNSAppToDeviceSpecs(mdnsApp string) (DeviceSpecs, bool) {
 			Wifi:               true,
 			Ethernet:           true,
 			BluetoothLowEnergy: true,
-		}, true
+		}, nil
 	case "Pro2":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Inputs:             2,
 			Switches:           2,
@@ -183,19 +261,48 @@ func MDNSAppToDeviceSpecs(mdnsApp string) (DeviceSpecs, bool) {
 			Wifi:               true,
 			Ethernet:           true,
 			BluetoothLowEnergy: true,
-		}, true
+		}, nil
 	case "Pro2PM":
-		return DeviceSpecs{
-			Profiles:           []string{"switch", "cover"},
-			Covers:             1,
-			Inputs:             2,
-			Switches:           2,
-			Scripts:            10,
-			Wifi:               true,
-			Ethernet:           true,
-			BluetoothLowEnergy: true,
-		}, true
+		switch profile {
+		case "":
+			return DeviceSpecs{
+				Profiles:           []string{"switch", "cover"},
+				Covers:             1,
+				Inputs:             2,
+				Switches:           2,
+				Scripts:            10,
+				Wifi:               true,
+				Ethernet:           true,
+				BluetoothLowEnergy: true,
+			}, nil
+		case "switch":
+			return DeviceSpecs{
+				Profiles:           []string{"switch", "cover"},
+				Inputs:             2,
+				Switches:           2,
+				Scripts:            10,
+				Wifi:               true,
+				Ethernet:           true,
+				BluetoothLowEnergy: true,
+			}, nil
+		case "cover":
+			return DeviceSpecs{
+				Profiles:           []string{"switch", "cover"},
+				Covers:             1,
+				Inputs:             2,
+				Scripts:            10,
+				Wifi:               true,
+				Ethernet:           true,
+				BluetoothLowEnergy: true,
+			}, nil
+		default:
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
+
 	case "ProDualCoverPM":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Covers:             2,
 			Inputs:             4,
@@ -204,8 +311,11 @@ func MDNSAppToDeviceSpecs(mdnsApp string) (DeviceSpecs, bool) {
 			Ethernet:           true,
 			BluetoothLowEnergy: true,
 			UI:                 true,
-		}, true
+		}, nil
 	case "ProEM":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Switches:           1,
 			EM1:                2,
@@ -215,8 +325,11 @@ func MDNSAppToDeviceSpecs(mdnsApp string) (DeviceSpecs, bool) {
 			Wifi:               true,
 			Ethernet:           true,
 			BluetoothLowEnergy: true,
-		}, true
+		}, nil
 	case "Pro3EM", "Pro3EM400":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Switches:           1,
 			EM:                 true,
@@ -226,13 +339,16 @@ func MDNSAppToDeviceSpecs(mdnsApp string) (DeviceSpecs, bool) {
 			Wifi:               true,
 			Ethernet:           true,
 			BluetoothLowEnergy: true,
-		}, true
+		}, nil
 	case "BLEGateway":
+		if profile != "" {
+			return DeviceSpecs{}, ErrUnknownDeviceProfile
+		}
 		return DeviceSpecs{
 			Scripts:            10,
 			Wifi:               true,
 			BluetoothLowEnergy: true,
-		}, true
+		}, nil
 	}
-	return DeviceSpecs{}, false
+	return DeviceSpecs{}, ErrUnknownDeviceApp
 }
