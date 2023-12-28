@@ -199,6 +199,139 @@ func TestShellyGetStatusResponseUnmarshall(t *testing.T) {
 				  "connected": false
 				}
 			  }`,
+			expect: ShellyGetStatusResponse{
+				System: &SysStatus{
+					Mac:              "C8F09E87D088",
+					RestartRequired:  false,
+					Time:             StrPtr("19:53"),
+					UnixTime:         IntPtr(1703811195),
+					Uptime:           97431,
+					RamSize:          241028,
+					RamFree:          100452,
+					FS_Size:          524288,
+					FS_Free:          196608,
+					CfgRev:           26,
+					KVRev:            1,
+					ScheduleRev:      IntPtr(0),
+					WebhookRev:       IntPtr(0),
+					AvailableUpdates: &AvailableUpdates{},
+					ResetReason:      IntPtr(3),
+				},
+				Cloud: &CloudStatus{
+					Connected: true,
+				},
+				MQTT: &MQTTStatus{
+					Connected: false,
+				},
+				Switches: []*SwitchStatus{
+					{
+						ID:      0,
+						Source:  StrPtr("timer"),
+						Output:  BoolPtr(false),
+						APower:  Float64Ptr(0),
+						Voltage: Float64Ptr(120.8),
+						Freq:    Float64Ptr(60),
+						Current: Float64Ptr(0),
+						PF:      Float64Ptr(0),
+						AEnergy: &EnergyCounters{
+							Total:    1342.238,
+							ByMinute: []float64{0, 0, 0},
+							MinuteTS: 1703811193,
+						},
+						RetAEnergy: &EnergyCounters{
+							Total:    0,
+							ByMinute: []float64{0, 0, 0},
+							MinuteTS: 1703811193,
+						},
+						Temperature: &Temperature{
+							C: Float64Ptr(41.3),
+							F: Float64Ptr(106.3),
+						},
+					},
+					{
+						ID:      1,
+						Source:  StrPtr("HTTP_in"),
+						Output:  BoolPtr(true),
+						APower:  Float64Ptr(83.9),
+						Voltage: Float64Ptr(120.8),
+						Freq:    Float64Ptr(60),
+						Current: Float64Ptr(1.143),
+						PF:      Float64Ptr(0.61),
+						AEnergy: &EnergyCounters{
+							Total: 102650.773,
+							ByMinute: []float64{
+								344.204,
+								1475.177,
+								1474.888,
+							},
+							MinuteTS: 1703811193,
+						},
+						RetAEnergy: &EnergyCounters{
+							Total:    0,
+							ByMinute: []float64{0, 0, 0},
+							MinuteTS: 1703811193,
+						},
+						Temperature: &Temperature{
+							C: Float64Ptr(41.3),
+							F: Float64Ptr(106.3),
+						},
+					},
+					{
+						ID:      2,
+						Source:  StrPtr("HTTP_in"),
+						Output:  BoolPtr(true),
+						APower:  Float64Ptr(210.3),
+						Voltage: Float64Ptr(120.9),
+						Freq:    Float64Ptr(60),
+						Current: Float64Ptr(1.741),
+						PF:      Float64Ptr(1),
+						AEnergy: &EnergyCounters{
+							Total: 69346.948,
+							ByMinute: []float64{
+								840.825,
+								3605.178,
+								3624.834,
+							},
+							MinuteTS: 1703811193,
+						},
+						RetAEnergy: &EnergyCounters{
+							Total:    0,
+							ByMinute: []float64{0, 0, 0},
+							MinuteTS: 1703811193,
+						},
+						Temperature: &Temperature{
+							C: Float64Ptr(41.3),
+							F: Float64Ptr(106.3),
+						},
+					},
+					{
+						ID:      3,
+						Source:  StrPtr("init"),
+						Output:  BoolPtr(false),
+						APower:  Float64Ptr(0),
+						Voltage: Float64Ptr(120.9),
+						Freq:    Float64Ptr(60),
+						Current: Float64Ptr(0),
+						PF:      Float64Ptr(0),
+						AEnergy: &EnergyCounters{
+							Total: 13.264,
+							ByMinute: []float64{
+								0, 0, 0,
+							},
+							MinuteTS: 1703811193,
+						},
+						RetAEnergy: &EnergyCounters{
+							Total:    0,
+							ByMinute: []float64{0, 0, 0},
+							MinuteTS: 1703811193,
+						},
+						Temperature: &Temperature{
+							C: Float64Ptr(41.3),
+							F: Float64Ptr(106.3),
+						},
+					},
+				},
+			},
 		},
 		{
 			name: "pro 3",
@@ -279,6 +412,60 @@ func TestShellyGetStatusResponseUnmarshall(t *testing.T) {
 				  "connected": false
 				}
 			  }`,
+			expect: ShellyGetStatusResponse{
+				System: &SysStatus{
+					Mac:              "C8F09E883630",
+					RestartRequired:  false,
+					Time:             StrPtr("19:52"),
+					UnixTime:         IntPtr(1703811156),
+					Uptime:           98059,
+					RamSize:          243420,
+					RamFree:          104384,
+					FS_Size:          524288,
+					FS_Free:          212992,
+					CfgRev:           16,
+					KVRev:            0,
+					ScheduleRev:      IntPtr(0),
+					WebhookRev:       IntPtr(0),
+					AvailableUpdates: &AvailableUpdates{},
+					ResetReason:      IntPtr(3),
+				},
+				Cloud: &CloudStatus{
+					Connected: true,
+				},
+				MQTT: &MQTTStatus{
+					Connected: false,
+				},
+				Switches: []*SwitchStatus{
+					{
+						ID:     0,
+						Source: StrPtr("init"),
+						Output: BoolPtr(false),
+						Temperature: &Temperature{
+							C: Float64Ptr(35.7),
+							F: Float64Ptr(96.2),
+						},
+					},
+					{
+						ID:     1,
+						Source: StrPtr("timer"),
+						Output: BoolPtr(false),
+						Temperature: &Temperature{
+							C: Float64Ptr(35.7),
+							F: Float64Ptr(96.2),
+						},
+					},
+					{
+						ID:     2,
+						Source: StrPtr("timer"),
+						Output: BoolPtr(false),
+						Temperature: &Temperature{
+							C: Float64Ptr(35.7),
+							F: Float64Ptr(96.2),
+						},
+					},
+				},
+			},
 		},
 	}
 	for _, tc := range tcs {

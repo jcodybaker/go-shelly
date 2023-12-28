@@ -217,13 +217,7 @@ type SysStatus struct {
 	// Information about available updates, similar to the one returned by Shelly.CheckForUpdate
 	// (empty object: {}, if no updates available). This information is automatically updated every
 	// 24 hours. Note that build_id and url for an update are not displayed here
-	AvailableUpdates *struct {
-		// Stable indicates the new stable version of the firmware.
-		Stable *FirmwareUpdateVersion `json:"stable,omitempty"`
-
-		// Beta indicates the new beta version of the firmware.
-		Beta *FirmwareUpdateVersion `json:"beta,omitempty"`
-	} `json:"available_updates,omitempty"`
+	AvailableUpdates *AvailableUpdates `json:"available_updates,omitempty"`
 
 	// WakeUpReason contains information about boot type and cause (only for battery-operated devices).
 	WakeUpReason *WakeUpReason `json:"wakeup_reason,omitempty"`
@@ -234,6 +228,9 @@ type SysStatus struct {
 
 	// SafeMode is True if device is oprating in Safe Mode and is only present in this mode.
 	SafeMode *bool `json:"safe_mode,omitempty"`
+
+	// ResetReason is not documented, but appears in 1.1.0 responses.
+	ResetReason *int `json:"reset_reason,omitempty"`
 }
 
 type WakeUpReason struct {
@@ -244,4 +241,12 @@ type WakeUpReason struct {
 	// Boot cause, one of: button, usb, periodic, status_update, alarm, alarm_test, undefined
 	// (in case of deep sleep, reset was not caused by exit from deep sleep).
 	Cause string `json:"cause"`
+}
+
+type AvailableUpdates struct {
+	// Stable indicates the new stable version of the firmware.
+	Stable *FirmwareUpdateVersion `json:"stable,omitempty"`
+
+	// Beta indicates the new beta version of the firmware.
+	Beta *FirmwareUpdateVersion `json:"beta,omitempty"`
 }
