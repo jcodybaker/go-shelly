@@ -1,8 +1,14 @@
 package shelly
 
 import (
+	"context"
 	"crypto/sha256"
 	"encoding/hex"
+	"encoding/json"
+	"fmt"
+
+	"github.com/mongoose-os/mos/common/mgrpc"
+	"github.com/mongoose-os/mos/common/mgrpc/frame"
 )
 
 const (
@@ -16,10 +22,112 @@ func (r *ShellyGetStatusRequest) Method() string {
 	return "Shelly.GetStatus"
 }
 
+func (r *ShellyGetStatusRequest) NewResponse() *ShellyGetStatusResponse {
+	return &ShellyGetStatusResponse{}
+}
+
+func (r *ShellyGetStatusRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*ShellyGetStatusResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
+}
+
 type ShellyGetStatusResponse struct {
-	MQTT *MQTTStatus `json:"mqtt,omitempty"`
+	// Schedules []*ScheduleStatus
+
+	System *SysStatus `json:"sys,omitempty"`
+
+	// Wifi *WifiStatus `json:"wifi,omitempty"`
+
+	// Ethernet *EthStatus `json:"eth,omitempty"`
+
+	// BLE *BLEStatus `json:"ble,omitempty"`
 
 	Cloud *CloudStatus `json:"cloud,omitempty"`
+
+	MQTT *MQTTStatus `json:"mqtt,omitempty"`
+
+	// WebSocket *WsStatus `json:"ws,omitempty"`
+
+	// Scripts []*ScriptStatus
+
+	// Inputs []*InputStatus
+
+	// ModBus *ModBusStatus
+
+	// Voltmeters []*VoltmeterStatus
+
+	// Covers []*CoverStatus
+
+	Switches []*SwitchStatus
+
+	// Lights []*LightStatus
+
+	// DevicePowers []*DevicePowerStatus
+
+	// Humidities []*HumidityStatus
+
+	// Temperatures []*TemperatureStatus
+
+	// EMs []*EMStatus
+
+	// EM1s []*EM1Status
+
+	// PM1s []*PM1Status
+
+	// EMDatas []*EMDataStatus
+
+	// EM1Datas []EM1DataStatus
+
+	// Smokes []*SmokeStatus
+}
+
+func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
+	theRest := make(map[string]json.RawMessage)
+	if err := json.Unmarshal(b, &theRest); err != nil {
+		return err
+	}
+	if v, ok := theRest["sys"]; ok {
+		var s SysStatus
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.System = &s
+	}
+	if v, ok := theRest["cloud"]; ok {
+		var s CloudStatus
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Cloud = &s
+	}
+	if v, ok := theRest["mqtt"]; ok {
+		var s MQTTStatus
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.MQTT = &s
+	}
+
+	for i := 0; ; i++ {
+		v, ok := theRest[fmt.Sprintf("switch:%d", i)]
+		if !ok {
+			break
+		}
+		var s SwitchStatus
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Switches = append(r.Switches, &s)
+	}
+	return nil
 }
 
 type ShellyGetDeviceInfoRequest struct {
@@ -29,6 +137,23 @@ type ShellyGetDeviceInfoRequest struct {
 
 func (r *ShellyGetDeviceInfoRequest) Method() string {
 	return "Shelly.GetDeviceInfo"
+}
+
+func (r *ShellyGetDeviceInfoRequest) NewResponse() *ShellyGetDeviceInfoResponse {
+	return &ShellyGetDeviceInfoResponse{}
+}
+
+func (r *ShellyGetDeviceInfoRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*ShellyGetDeviceInfoResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
 }
 
 type ShellyGetDeviceInfoResponse struct {
@@ -80,6 +205,23 @@ type ShellyCheckForUpdateRequest struct{}
 
 func (r *ShellyCheckForUpdateRequest) Method() string {
 	return "Shelly.CheckForUpdate"
+}
+
+func (r *ShellyCheckForUpdateRequest) NewResponse() *ShellyCheckForUpdateResponse {
+	return &ShellyCheckForUpdateResponse{}
+}
+
+func (r *ShellyCheckForUpdateRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*ShellyCheckForUpdateResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
 }
 
 type ShellyCheckForUpdateResponse struct {
