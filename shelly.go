@@ -40,8 +40,6 @@ func (r *ShellyGetStatusRequest) Do(
 }
 
 type ShellyGetStatusResponse struct {
-	// Schedules []*ScheduleStatus
-
 	System *SysStatus `json:"sys,omitempty"`
 
 	Wifi *WifiStatus `json:"wifi,omitempty"`
@@ -64,7 +62,7 @@ type ShellyGetStatusResponse struct {
 
 	// Voltmeters []*VoltmeterStatus
 
-	// Covers []*CoverStatus
+	Covers []*CoverStatus
 
 	Switches []*SwitchStatus
 
@@ -140,6 +138,17 @@ func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
 			return err
 		}
 		r.Switches = append(r.Switches, &s)
+	}
+	for i := 0; ; i++ {
+		v, ok := theRest[fmt.Sprintf("cover:%d", i)]
+		if !ok {
+			break
+		}
+		var s CoverStatus
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Covers = append(r.Covers, &s)
 	}
 	for i := 0; ; i++ {
 		v, ok := theRest[fmt.Sprintf("input:%d", i)]
