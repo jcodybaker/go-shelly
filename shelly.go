@@ -46,7 +46,7 @@ type ShellyGetStatusResponse struct {
 
 	Wifi *WifiStatus `json:"wifi,omitempty"`
 
-	// Ethernet *EthStatus `json:"eth,omitempty"`
+	Ethernet *EthStatus `json:"eth,omitempty"`
 
 	// BLE *BLEStatus `json:"ble,omitempty"`
 
@@ -121,6 +121,13 @@ func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
 			return err
 		}
 		r.Wifi = &s
+	}
+	if v, ok := theRest["eth"]; ok {
+		var s EthStatus
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Ethernet = &s
 	}
 
 	for i := 0; ; i++ {

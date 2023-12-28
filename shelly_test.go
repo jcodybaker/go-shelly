@@ -229,6 +229,9 @@ func TestShellyGetStatusResponseUnmarshall(t *testing.T) {
 					SSID:   StrPtr("PickleTown"),
 					RRSI:   Float64Ptr(-36),
 				},
+				Ethernet: &EthStatus{
+					IP: nil,
+				},
 				Inputs: []*InputStatus{
 					{
 						ID:    0,
@@ -465,6 +468,9 @@ func TestShellyGetStatusResponseUnmarshall(t *testing.T) {
 					Status: "got ip",
 					SSID:   StrPtr("PickleTown"),
 					RRSI:   Float64Ptr(-22),
+				},
+				Ethernet: &EthStatus{
+					IP: nil,
 				},
 				Inputs: []*InputStatus{
 					{
