@@ -49,6 +49,10 @@ func main() {
 * Complete API
     * Known missing: Scripts, Outbound WebSockets, Lights, ModBus, Covers, Voltmeters, Humidity, Temperature, DevicePower, Smoke, EM(data), EM1(data), PM1, UI.
     * Wrappers for easy software updates, and configuration of multi-line scripts and certificates.
+* CI testing / dependabot / release pipeline.
+
+## Contributing
+Pull-requests and [issues](https://github.com/jcodybaker/go-shelly/issues) are welcome. Code should be formatted with gofmt, pass existing tests, and ideally add new testing. Test should include samples from live device request/response flows when possible.
 
 ## Legal
 
