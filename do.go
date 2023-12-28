@@ -9,20 +9,6 @@ import (
 	"github.com/mongoose-os/mos/common/mgrpc/frame"
 )
 
-const (
-	// StatusIDNotFound is the code returned when a request is made for an unknown id.
-	StatusIDNotFound = -105
-)
-
-type BadStatusError struct {
-	Status int
-	Msg    string
-}
-
-func (err *BadStatusError) Error() string {
-	return fmt.Sprintf("RPC Bad Status %d: %s", err.Status, err.Msg)
-}
-
 func Do[I RPCRequestBody, O any](
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -42,7 +28,7 @@ func Do[I RPCRequestBody, O any](
 		return rawResp, fmt.Errorf("making shelly rpc request: %w", err)
 	}
 	if rawResp.Status != 0 {
-		return rawResp, &BadStatusError{Status: rawResp.Status, Msg: rawResp.StatusMsg}
+		return rawResp, &BadStatusWithMessageError{Status: ShellyErrorCode(rawResp.Status), Msg: rawResp.StatusMsg}
 	}
 	if err := json.Unmarshal(rawResp.Response, resp); err != nil {
 		return rawResp, fmt.Errorf("failed to unmarshal response body: %w", err)
