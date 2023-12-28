@@ -212,7 +212,7 @@ type ShellyGetDeviceInfoResponse struct {
 	Model string `json:"model"`
 
 	// Gen is the generation of the device
-	Gen string `json:"gen"`
+	Gen json.Number `json:"gen"`
 
 	// FW_ID is the firmware id of the device.
 	FW_ID string `json:"fw_id"`
