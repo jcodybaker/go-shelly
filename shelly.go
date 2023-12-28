@@ -48,7 +48,7 @@ type ShellyGetStatusResponse struct {
 
 	Ethernet *EthStatus `json:"eth,omitempty"`
 
-	// BLE *BLEStatus `json:"ble,omitempty"`
+	BLE *BLEStatus `json:"ble,omitempty"`
 
 	Cloud *CloudStatus `json:"cloud,omitempty"`
 
