@@ -227,7 +227,7 @@ type ShellyGetDeviceInfoResponse struct {
 	Profile string `json:"profile"`
 
 	// AuthEn is true if authentication is enabled.
-	AuthEn string `json:"auth_en"`
+	AuthEn bool `json:"auth_en"`
 
 	// Name of the domain (null if authentication is not enabled)
 	AuthDomain *string `json:"auth_domain"`
