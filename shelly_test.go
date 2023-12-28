@@ -223,6 +223,12 @@ func TestShellyGetStatusResponseUnmarshall(t *testing.T) {
 				MQTT: &MQTTStatus{
 					Connected: false,
 				},
+				Wifi: &WifiStatus{
+					StaIP:  StrPtr("192.168.1.24"),
+					Status: "got ip",
+					SSID:   StrPtr("PickleTown"),
+					RRSI:   Float64Ptr(-36),
+				},
 				Inputs: []*InputStatus{
 					{
 						ID:    0,
@@ -453,6 +459,12 @@ func TestShellyGetStatusResponseUnmarshall(t *testing.T) {
 				},
 				MQTT: &MQTTStatus{
 					Connected: false,
+				},
+				Wifi: &WifiStatus{
+					StaIP:  StrPtr("192.168.1.23"),
+					Status: "got ip",
+					SSID:   StrPtr("PickleTown"),
+					RRSI:   Float64Ptr(-22),
 				},
 				Inputs: []*InputStatus{
 					{
