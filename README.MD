@@ -47,7 +47,7 @@ func main() {
     * It's not always clear which Go types should be used for JSON Numeric values. More validation is needed to ensure these types are correctly defined.
     * In contrast to Golang, the Shelly API appears differentiate between no-value and `null`. For example, in some cases (ex. Wifi.SetConfig), a JSON key with `null` value will clear the existing configuration, while omitting the key/value entirely leaves it untouched.
 * Complete API
-    * Known missing: Scripts, Outbound WebSockets, Lights, ModBus, Covers, Voltmeters, Humidity, Temperature, DevicePower, Smoke, EM(data), EM1(data), PM1, UI.
+    * Known missing: Scripts, Outbound WebSockets, ModBus, Voltmeters, Humidity, Temperature, DevicePower, Smoke, EM(data), EM1(data), PM1, UI.
     * Wrappers for easy software updates, and configuration of multi-line scripts and certificates.
 * CI testing / dependabot / release pipeline.
 

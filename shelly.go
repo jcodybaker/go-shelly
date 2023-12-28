@@ -66,7 +66,7 @@ type ShellyGetStatusResponse struct {
 
 	Switches []*SwitchStatus
 
-	// Lights []*LightStatus
+	Lights []*LightStatus
 
 	// DevicePowers []*DevicePowerStatus
 
@@ -160,6 +160,17 @@ func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
 			return err
 		}
 		r.Inputs = append(r.Inputs, &s)
+	}
+	for i := 0; ; i++ {
+		v, ok := theRest[fmt.Sprintf("light:%d", i)]
+		if !ok {
+			break
+		}
+		var s LightStatus
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Lights = append(r.Lights, &s)
 	}
 	return nil
 }
