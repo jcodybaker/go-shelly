@@ -58,7 +58,7 @@ type ShellyGetStatusResponse struct {
 
 	// Scripts []*ScriptStatus
 
-	// Inputs []*InputStatus
+	Inputs []*InputStatus
 
 	// ModBus *ModBusStatus
 
@@ -126,6 +126,17 @@ func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
 			return err
 		}
 		r.Switches = append(r.Switches, &s)
+	}
+	for i := 0; ; i++ {
+		v, ok := theRest[fmt.Sprintf("input:%d", i)]
+		if !ok {
+			break
+		}
+		var s InputStatus
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Inputs = append(r.Inputs, &s)
 	}
 	return nil
 }

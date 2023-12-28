@@ -223,6 +223,24 @@ func TestShellyGetStatusResponseUnmarshall(t *testing.T) {
 				MQTT: &MQTTStatus{
 					Connected: false,
 				},
+				Inputs: []*InputStatus{
+					{
+						ID:    0,
+						State: BoolPtr(false),
+					},
+					{
+						ID:    1,
+						State: BoolPtr(false),
+					},
+					{
+						ID:    2,
+						State: BoolPtr(false),
+					},
+					{
+						ID:    3,
+						State: BoolPtr(false),
+					},
+				},
 				Switches: []*SwitchStatus{
 					{
 						ID:      0,
@@ -435,6 +453,20 @@ func TestShellyGetStatusResponseUnmarshall(t *testing.T) {
 				},
 				MQTT: &MQTTStatus{
 					Connected: false,
+				},
+				Inputs: []*InputStatus{
+					{
+						ID:    0,
+						State: BoolPtr(false),
+					},
+					{
+						ID:    1,
+						State: BoolPtr(false),
+					},
+					{
+						ID:    2,
+						State: BoolPtr(false),
+					},
 				},
 				Switches: []*SwitchStatus{
 					{

@@ -15,7 +15,7 @@ import (
 
 func GetCallWithVerify(t *testing.T, req shelly.RPCRequestBody, respBody interface{}) {
 	ctx := context.Background()
-	c, err := mgrpc.New(ctx, "http://192.168.1.10/rpc", mgrpc.UseHTTPPost())
+	c, err := mgrpc.New(ctx, "http://192.168.1.23/rpc", mgrpc.UseHTTPPost())
 	require.NoError(t, err)
 	defer c.Disconnect(ctx)
 

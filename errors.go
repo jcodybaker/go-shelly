@@ -73,6 +73,10 @@ var (
 
 	// ErrRPCHTTPErrorResponse ...
 	ErrRPCHTTPErrorResponse = ShellyErrorCode(-18)
+
+	// ErrRPCNoHandler is returned when a call is made to an unknown handler.
+	// NOTE: This is not documented, but was seen.
+	ErrRPCNoHandler = ShellyErrorCode(404)
 )
 
 // Error implements the `error` interface.
@@ -127,6 +131,8 @@ func (err ShellyErrorCode) Error() string {
 	case -18:
 		// -18: HTTP Error Response
 		msg = "http error response"
+	case 404:
+		msg = "no handler for request"
 	default:
 		msg = "unknown error"
 	}
