@@ -1,6 +1,9 @@
 # go-shelly
 go-shelly is an unofficial native go client for the [Shelly Gen2 API](https://shelly-api-docs.shelly.cloud/gen2/). It compliments the [MongooseOS mgrpc library](https://pkg.go.dev/github.com/mongoose-os/mos/common/mgrpc).
 
+## Maturity
+This library is currently in active development (as of December 2023). It has meaningful gaps in testing and functionality. At this stage there is no guarantee of backwards compatibility. Once the project reaches a stable state, I will begin crafting releases with semantic versioning. 
+
 ## Usage
 In most cases, using the library is as simple building an RPC channel and calling .Do().  See the [go doc](https://pkg.go.dev/github.com/jcodybaker/go-shelly) and [Shelly Gen2 API documentation](https://shelly-api-docs.shelly.cloud/gen2/).
 ```
@@ -35,6 +38,17 @@ func main() {
     }
 }
 ```
+
+## TODO
+* More rigorous integration testing. Currently I have a Shelly Pro 4PM, Shelly Pro 3, Shelly Plug US, and Shelly Plus HT. All are controlling live workloads and thus I've been reluctant to test mutating actions outside the needs of my own projects.
+* MQTT / WebSocket examples.
+* mDNS / BLE integrations for discovery and bootstrapping.  Open question: Should these be in separate projects to avoid dependency bloat?
+* Stabilize API
+    * It's not always clear which Go types should be used for JSON Numeric values. More validation is needed to ensure these types are correctly defined.
+    * In contrast to Golang, the Shelly API appears differentiate between no-value and `null`. For example, in some cases (ex. Wifi.SetConfig), a JSON key with `null` value will clear the existing configuration, while omitting the key/value entirely leaves it untouched.
+* Complete API
+    * Known missing: Scripts, Outbound WebSockets, Lights, ModBus, Covers, Voltmeters, Humidity, Temperature, DevicePower, Smoke, EM(data), EM1(data), PM1, UI.
+    * Wrappers for easy software updates, and configuration of multi-line scripts and certificates.
 
 ## Legal
 
