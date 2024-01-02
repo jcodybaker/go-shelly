@@ -380,3 +380,139 @@ type ShellyPutTLSClientKeyRequest struct {
 func (r *ShellyPutTLSClientKeyRequest) Method() string {
 	return "Shelly.PutTLSClientKey"
 }
+
+type ShellyGetConfigResponse struct {
+	System *SysConfig `json:"sys,omitempty"`
+
+	Wifi *WifiConfig `json:"wifi,omitempty"`
+
+	Ethernet *EthConfig `json:"eth,omitempty"`
+
+	BLE *BLEConfig `json:"ble,omitempty"`
+
+	Cloud *CloudConfig `json:"cloud,omitempty"`
+
+	MQTT *MQTTConfig `json:"mqtt,omitempty"`
+
+	// WebSocket *WsConfig `json:"ws,omitempty"`
+
+	// Scripts []*ScriptConfig
+
+	Inputs []*InputConfig
+
+	// ModBus *ModBusConfig
+
+	// Voltmeters []*VoltmeterConfig
+
+	Covers []*CoverConfig
+
+	Switches []*SwitchConfig
+
+	Lights []*LightConfig
+
+	// DevicePowers []*DevicePowerConfig
+
+	// Humidities []*HumidityConfig
+
+	// Temperatures []*TemperatureConfig
+
+	// EMs []*EMConfig
+
+	// EM1s []*EM1Config
+
+	// PM1s []*PM1Config
+
+	// EMDatas []*EMDataConfig
+
+	// EM1Datas []EM1DataConfig
+
+	// Smokes []*SmokeConfig
+}
+
+func (r *ShellyGetConfigResponse) UnmarshalJSON(b []byte) error {
+	theRest := make(map[string]json.RawMessage)
+	if err := json.Unmarshal(b, &theRest); err != nil {
+		return err
+	}
+	if v, ok := theRest["sys"]; ok {
+		var s SysConfig
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.System = &s
+	}
+	if v, ok := theRest["cloud"]; ok {
+		var s CloudConfig
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Cloud = &s
+	}
+	if v, ok := theRest["mqtt"]; ok {
+		var s MQTTConfig
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.MQTT = &s
+	}
+	if v, ok := theRest["wifi"]; ok {
+		var s WifiConfig
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Wifi = &s
+	}
+	if v, ok := theRest["eth"]; ok {
+		var s EthConfig
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Ethernet = &s
+	}
+
+	for i := 0; ; i++ {
+		v, ok := theRest[fmt.Sprintf("switch:%d", i)]
+		if !ok {
+			break
+		}
+		var s SwitchConfig
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Switches = append(r.Switches, &s)
+	}
+	for i := 0; ; i++ {
+		v, ok := theRest[fmt.Sprintf("cover:%d", i)]
+		if !ok {
+			break
+		}
+		var s CoverConfig
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Covers = append(r.Covers, &s)
+	}
+	for i := 0; ; i++ {
+		v, ok := theRest[fmt.Sprintf("input:%d", i)]
+		if !ok {
+			break
+		}
+		var s InputConfig
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Inputs = append(r.Inputs, &s)
+	}
+	for i := 0; ; i++ {
+		v, ok := theRest[fmt.Sprintf("light:%d", i)]
+		if !ok {
+			break
+		}
+		var s LightConfig
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Lights = append(r.Lights, &s)
+	}
+	return nil
+}
