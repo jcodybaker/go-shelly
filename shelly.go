@@ -516,3 +516,26 @@ func (r *ShellyGetConfigResponse) UnmarshalJSON(b []byte) error {
 	}
 	return nil
 }
+
+type ShellyGetConfigRequest struct{}
+
+func (r *ShellyGetConfigRequest) Method() string {
+	return "Shelly.GetConfig"
+}
+
+func (r *ShellyGetConfigRequest) NewResponse() *ShellyGetConfigResponse {
+	return &ShellyGetConfigResponse{}
+}
+
+func (r *ShellyGetConfigRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*ShellyGetConfigResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
+}
