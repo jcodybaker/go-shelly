@@ -318,13 +318,13 @@ func (r *ShellyRebootRequest) Method() string {
 
 type ShellySetAuthRequest struct {
 	// User must be set to admin. Only one user is supported. (Required)
-	User string
+	User string `json:"user,omitempty"`
 
 	// Realm must be the id of the device. Only one realm is supported. (Required)
-	Realm string
+	Realm string `json:"realm,omitempty"`
 
 	// HA1 "user:realm:password" encoded in SHA256 (null to disable authentication).
-	HA1 *string
+	HA1 *string `json:"ha1,omitempty"`
 }
 
 func (r *ShellySetAuthRequest) Method() string {
