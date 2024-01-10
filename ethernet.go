@@ -78,7 +78,9 @@ func (r *EthGetConfigRequest) Do(
 	return resp, raw, err
 }
 
-type EthSetConfigRequest struct{}
+type EthSetConfigRequest struct {
+	Config EthConfig `json:"config"`
+}
 
 func (r *EthSetConfigRequest) Method() string {
 	return "Eth.SetConfig"

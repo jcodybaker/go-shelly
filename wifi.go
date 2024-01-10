@@ -147,7 +147,9 @@ func (r *WifiGetConfigRequest) Do(
 	return resp, raw, err
 }
 
-type WifiSetConfigRequest struct{}
+type WifiSetConfigRequest struct {
+	Config WifiConfig `json:"config"`
+}
 
 func (r *WifiSetConfigRequest) Method() string {
 	return "Wifi.SetConfig"
