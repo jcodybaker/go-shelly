@@ -43,16 +43,16 @@ type EthConfig struct {
 	IPv4Mode *string `json:"ipv4mode,omitempty"`
 
 	// IP to use when ipv4mode is static.
-	IP *string `json:"ip"`
+	IP *string `json:"ip,omitempty"`
 
 	// Netmask to use when ipv4mode is static
-	Netmask *string `json:"netmask"`
+	Netmask *string `json:"netmask,omitempty"`
 
 	// GW is the gateway to use when ipv4mode is static
-	GW *string `json:"gw"`
+	GW *string `json:"gw,omitempty"`
 
 	// Nameserver to use when ipv4mode is static
-	Nameserver *string `json:"nameserver"`
+	Nameserver *string `json:"nameserver,omitempty"`
 }
 
 type EthGetConfigRequest struct{}
