@@ -51,8 +51,8 @@ func (r *LightSetConfigRequest) Method() string {
 	return "Light.SetConfig"
 }
 
-func (r *LightSetConfigRequest) NewTypedResponse() *LightConfig {
-	return &LightConfig{}
+func (r *LightSetConfigRequest) NewTypedResponse() *SetConfigResponse {
+	return &SetConfigResponse{}
 }
 
 func (r *LightSetConfigRequest) NewResponse() any {
@@ -63,7 +63,7 @@ func (r *LightSetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
 ) (
-	*LightConfig,
+	*SetConfigResponse,
 	*frame.Response,
 	error,
 ) {

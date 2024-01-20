@@ -61,7 +61,7 @@ func (r *CoverSetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
 ) (
-	*CoverConfig,
+	*SetConfigResponse,
 	*frame.Response,
 	error,
 ) {
