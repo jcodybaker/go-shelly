@@ -48,7 +48,7 @@ func (r *SysSetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
 ) (
-	*RPCEmptyResponse,
+	*SetConfigResponse,
 	*frame.Response,
 	error,
 ) {

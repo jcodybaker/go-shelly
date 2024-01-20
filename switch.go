@@ -53,7 +53,7 @@ func (r *SwitchSetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
 ) (
-	*SwitchConfig,
+	*SetConfigResponse,
 	*frame.Response,
 	error,
 ) {
@@ -62,8 +62,8 @@ func (r *SwitchSetConfigRequest) Do(
 	return resp, raw, err
 }
 
-func (r *SwitchSetConfigRequest) NewTypedResponse() *SwitchConfig {
-	return &SwitchConfig{}
+func (r *SwitchSetConfigRequest) NewTypedResponse() *SetConfigResponse {
+	return &SetConfigResponse{}
 }
 
 func (r *SwitchSetConfigRequest) NewResponse() any {
