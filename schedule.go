@@ -156,7 +156,7 @@ func (r *ScheduleDeleteRequest) Do(
 type ScheduleDeleteAllRequest struct{}
 
 func (r *ScheduleDeleteAllRequest) Method() string {
-	return "Schedule.Delete"
+	return "Schedule.DeleteAll"
 }
 
 func (r *ScheduleDeleteAllRequest) NewTypedResponse() *ScheduleUpdateResponse {
