@@ -312,6 +312,27 @@ func (r *ShellyFactoryResetRequest) Method() string {
 	return "Shelly.FactoryReset"
 }
 
+func (r *ShellyFactoryResetRequest) NewTypedResponse() *RPCEmptyResponse {
+	return &RPCEmptyResponse{}
+}
+
+func (r *ShellyFactoryResetRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *ShellyFactoryResetRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*RPCEmptyResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
+}
+
 type ShellyResetWiFiConfigRequest struct{}
 
 func (r *ShellyResetWiFiConfigRequest) Method() string {
@@ -328,6 +349,27 @@ func (r *ShellyRebootRequest) Method() string {
 	return "Shelly.Reboot"
 }
 
+func (r *ShellyRebootRequest) NewTypedResponse() *RPCEmptyResponse {
+	return &RPCEmptyResponse{}
+}
+
+func (r *ShellyRebootRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *ShellyRebootRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*RPCEmptyResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
+}
+
 type ShellySetAuthRequest struct {
 	// User must be set to admin. Only one user is supported. (Required)
 	User string `json:"user,omitempty"`
@@ -341,6 +383,27 @@ type ShellySetAuthRequest struct {
 
 func (r *ShellySetAuthRequest) Method() string {
 	return "Shelly.SetAuth"
+}
+
+func (r *ShellySetAuthRequest) NewTypedResponse() *RPCEmptyResponse {
+	return &RPCEmptyResponse{}
+}
+
+func (r *ShellySetAuthRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *ShellySetAuthRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*RPCEmptyResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
 }
 
 func NewShellySetAuthRequest(deviceID, password string) *ShellySetAuthRequest {

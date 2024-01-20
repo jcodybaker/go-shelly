@@ -1,5 +1,12 @@
 package shelly
 
+import (
+	"context"
+
+	"github.com/mongoose-os/mos/common/mgrpc"
+	"github.com/mongoose-os/mos/common/mgrpc/frame"
+)
+
 type MQTTSetConfigRequest struct {
 	Config MQTTConfig `json:"config"`
 }
@@ -8,12 +15,54 @@ func (r *MQTTSetConfigRequest) Method() string {
 	return "MQTT.SetConfig"
 }
 
+func (r *MQTTSetConfigRequest) NewTypedResponse() *RPCEmptyResponse {
+	return &RPCEmptyResponse{}
+}
+
+func (r *MQTTSetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *MQTTSetConfigRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*RPCEmptyResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
+}
+
 type MQTTGetConfigRequest struct {
 	Config MQTTConfig `json:"config"`
 }
 
 func (r *MQTTGetConfigRequest) Method() string {
 	return "MQTT.GetConfig"
+}
+
+func (r *MQTTGetConfigRequest) NewTypedResponse() *RPCEmptyResponse {
+	return &RPCEmptyResponse{}
+}
+
+func (r *MQTTGetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *MQTTGetConfigRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*RPCEmptyResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
 }
 
 // MQTTConfig configures MQTT for Shelly.
@@ -56,6 +105,27 @@ type MQTTGetStatusRequest struct{}
 // Method returns the method name.
 func (r *MQTTGetStatusRequest) Method() string {
 	return "MQTT.GetStatus"
+}
+
+func (r *MQTTGetStatusRequest) NewTypedResponse() *RPCEmptyResponse {
+	return &RPCEmptyResponse{}
+}
+
+func (r *MQTTGetStatusRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *MQTTGetStatusRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*RPCEmptyResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
 }
 
 type MQTTStatus struct {

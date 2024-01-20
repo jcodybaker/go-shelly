@@ -44,6 +44,27 @@ func (r *SysSetConfigRequest) Method() string {
 	return "Sys.SetConfig"
 }
 
+func (r *SysSetConfigRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*RPCEmptyResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
+}
+
+func (r *SysSetConfigRequest) NewTypedResponse() *SetConfigResponse {
+	return &SetConfigResponse{}
+}
+
+func (r *SysSetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 type SysGetStatusRequest struct{}
 
 func (r *SysGetStatusRequest) Method() string {

@@ -5,3 +5,5 @@ type RPCRequestBody interface {
 	Method() string
 	NewResponse() any
 }
+
+type RPCEmptyResponse struct{}

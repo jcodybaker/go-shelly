@@ -49,8 +49,8 @@ func (r *CoverSetConfigRequest) Method() string {
 	return "Cover.SetConfig"
 }
 
-func (r *CoverSetConfigRequest) NewTypedResponse() *CoverConfig {
-	return &CoverConfig{}
+func (r *CoverSetConfigRequest) NewTypedResponse() *SetConfigResponse {
+	return &SetConfigResponse{}
 }
 
 func (r *CoverSetConfigRequest) NewResponse() any {
