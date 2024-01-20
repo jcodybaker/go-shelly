@@ -22,8 +22,12 @@ func (r *ShellyGetStatusRequest) Method() string {
 	return "Shelly.GetStatus"
 }
 
-func (r *ShellyGetStatusRequest) NewResponse() *ShellyGetStatusResponse {
+func (r *ShellyGetStatusRequest) NewTypedResponse() *ShellyGetStatusResponse {
 	return &ShellyGetStatusResponse{}
+}
+
+func (r *ShellyGetStatusRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *ShellyGetStatusRequest) Do(
@@ -34,7 +38,7 @@ func (r *ShellyGetStatusRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -184,8 +188,12 @@ func (r *ShellyGetDeviceInfoRequest) Method() string {
 	return "Shelly.GetDeviceInfo"
 }
 
-func (r *ShellyGetDeviceInfoRequest) NewResponse() *ShellyGetDeviceInfoResponse {
+func (r *ShellyGetDeviceInfoRequest) NewTypedResponse() *ShellyGetDeviceInfoResponse {
 	return &ShellyGetDeviceInfoResponse{}
+}
+
+func (r *ShellyGetDeviceInfoRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *ShellyGetDeviceInfoRequest) Do(
@@ -196,7 +204,7 @@ func (r *ShellyGetDeviceInfoRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -252,8 +260,12 @@ func (r *ShellyCheckForUpdateRequest) Method() string {
 	return "Shelly.CheckForUpdate"
 }
 
-func (r *ShellyCheckForUpdateRequest) NewResponse() *ShellyCheckForUpdateResponse {
+func (r *ShellyCheckForUpdateRequest) NewTypedResponse() *ShellyCheckForUpdateResponse {
 	return &ShellyCheckForUpdateResponse{}
+}
+
+func (r *ShellyCheckForUpdateRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *ShellyCheckForUpdateRequest) Do(
@@ -264,7 +276,7 @@ func (r *ShellyCheckForUpdateRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -523,8 +535,12 @@ func (r *ShellyGetConfigRequest) Method() string {
 	return "Shelly.GetConfig"
 }
 
-func (r *ShellyGetConfigRequest) NewResponse() *ShellyGetConfigResponse {
+func (r *ShellyGetConfigRequest) NewTypedResponse() *ShellyGetConfigResponse {
 	return &ShellyGetConfigResponse{}
+}
+
+func (r *ShellyGetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *ShellyGetConfigRequest) Do(
@@ -535,7 +551,7 @@ func (r *ShellyGetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }

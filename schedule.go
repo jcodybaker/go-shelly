@@ -56,8 +56,12 @@ func (r *ScheduleCreateRequest) Method() string {
 	return "Schedule.Create"
 }
 
-func (r *ScheduleCreateRequest) NewResponse() *ScheduleCreateResponse {
+func (r *ScheduleCreateRequest) NewTypedResponse() *ScheduleCreateResponse {
 	return &ScheduleCreateResponse{}
+}
+
+func (r *ScheduleCreateRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *ScheduleCreateRequest) Do(
@@ -68,7 +72,7 @@ func (r *ScheduleCreateRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -96,8 +100,12 @@ func (r *ScheduleUpdateRequest) Method() string {
 	return "Schedule.Update"
 }
 
-func (r *ScheduleUpdateRequest) NewResponse() *ScheduleUpdateResponse {
+func (r *ScheduleUpdateRequest) NewTypedResponse() *ScheduleUpdateResponse {
 	return &ScheduleUpdateResponse{}
+}
+
+func (r *ScheduleUpdateRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *ScheduleUpdateRequest) Do(
@@ -108,7 +116,7 @@ func (r *ScheduleUpdateRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -123,8 +131,12 @@ func (r *ScheduleDeleteRequest) Method() string {
 	return "Schedule.Delete"
 }
 
-func (r *ScheduleDeleteRequest) NewResponse() *ScheduleUpdateResponse {
+func (r *ScheduleDeleteRequest) NewTypedResponse() *ScheduleUpdateResponse {
 	return &ScheduleUpdateResponse{}
+}
+
+func (r *ScheduleDeleteRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *ScheduleDeleteRequest) Do(
@@ -135,7 +147,7 @@ func (r *ScheduleDeleteRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -147,8 +159,12 @@ func (r *ScheduleDeleteAllRequest) Method() string {
 	return "Schedule.Delete"
 }
 
-func (r *ScheduleDeleteAllRequest) NewResponse() *ScheduleUpdateResponse {
+func (r *ScheduleDeleteAllRequest) NewTypedResponse() *ScheduleUpdateResponse {
 	return &ScheduleUpdateResponse{}
+}
+
+func (r *ScheduleDeleteAllRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *ScheduleDeleteAllRequest) Do(
@@ -159,7 +175,7 @@ func (r *ScheduleDeleteAllRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }

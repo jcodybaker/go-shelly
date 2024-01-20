@@ -17,6 +17,14 @@ func (r *LightGetConfigRequest) Method() string {
 	return "Light.GetConfig"
 }
 
+func (r *LightGetConfigRequest) NewTypedResponse() *LightConfig {
+	return &LightConfig{}
+}
+
+func (r *LightGetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *LightGetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -25,13 +33,9 @@ func (r *LightGetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *LightGetConfigRequest) NewResponse() *LightConfig {
-	return &LightConfig{}
 }
 
 // LightSetConfigRequest contains parameters for the Light.SetConfig RPC request.
@@ -47,6 +51,14 @@ func (r *LightSetConfigRequest) Method() string {
 	return "Light.SetConfig"
 }
 
+func (r *LightSetConfigRequest) NewTypedResponse() *LightConfig {
+	return &LightConfig{}
+}
+
+func (r *LightSetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *LightSetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -55,13 +67,9 @@ func (r *LightSetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *LightSetConfigRequest) NewResponse() *LightConfig {
-	return &LightConfig{}
 }
 
 // LightGetStatusRequst contains parameters for the Light.GetStatus RPC request.
@@ -74,6 +82,14 @@ func (r *LightGetStatusRequest) Method() string {
 	return "Light.GetStatus"
 }
 
+func (r *LightGetStatusRequest) NewTypedResponse() *LightStatus {
+	return &LightStatus{}
+}
+
+func (r *LightGetStatusRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *LightGetStatusRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -82,13 +98,9 @@ func (r *LightGetStatusRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *LightGetStatusRequest) NewResponse() *LightStatus {
-	return &LightStatus{}
 }
 
 // LightSetRequest is the parameters for the Light.Set RPC, which enables or disables a light.
@@ -114,6 +126,14 @@ func (r *LightSetRequest) Method() string {
 	return "Light.Set"
 }
 
+func (r *LightSetRequest) NewTypedResponse() *LightSetResponse {
+	return &LightSetResponse{}
+}
+
+func (r *LightSetRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *LightSetRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -122,13 +142,9 @@ func (r *LightSetRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *LightSetRequest) NewResponse() *LightSetResponse {
-	return &LightSetResponse{}
 }
 
 // LightSetResponse is the response body for the Light.Set RPC.
@@ -144,6 +160,14 @@ func (r *LightToggleRequest) Method() string {
 	return "Light.Toggle"
 }
 
+func (r *LightToggleRequest) NewTypedResponse() *LightToggleResponse {
+	return &LightToggleResponse{}
+}
+
+func (r *LightToggleRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *LightToggleRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -152,13 +176,9 @@ func (r *LightToggleRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *LightToggleRequest) NewResponse() *LightToggleResponse {
-	return &LightToggleResponse{}
 }
 
 // LightToggleResponse is the body for the Light.Toggle RPC response.

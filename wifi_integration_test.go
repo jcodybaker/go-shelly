@@ -8,12 +8,12 @@ import (
 
 func TestWifiGetConfig(t *testing.T) {
 	req := &shelly.WifiGetConfigRequest{}
-	resp := req.NewResponse()
+	resp := req.NewTypedResponse()
 	GetCallWithVerify(t, req, resp)
 }
 
 func TestWifiGetStatus(t *testing.T) {
 	req := &shelly.WifiGetStatusRequest{}
-	resp := req.NewResponse()
+	resp := req.NewTypedResponse()
 	GetCallWithVerify(t, req, resp)
 }

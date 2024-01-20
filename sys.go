@@ -22,13 +22,17 @@ func (r *SysGetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
 
-func (r *SysGetConfigRequest) NewResponse() *SysConfig {
+func (r *SysGetConfigRequest) NewTypedResponse() *SysConfig {
 	return &SysConfig{}
+}
+
+func (r *SysGetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 type SysSetConfigRequest struct {
@@ -54,13 +58,17 @@ func (r *SysGetStatusRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
 
-func (r *SysGetStatusRequest) NewResponse() *SysStatus {
+func (r *SysGetStatusRequest) NewTypedResponse() *SysStatus {
 	return &SysStatus{}
+}
+
+func (r *SysGetStatusRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 type SysConfig struct {

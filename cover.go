@@ -16,6 +16,14 @@ func (r *CoverGetConfigRequest) Method() string {
 	return "Cover.GetConfig"
 }
 
+func (r *CoverGetConfigRequest) NewTypedResponse() *CoverConfig {
+	return &CoverConfig{}
+}
+
+func (r *CoverGetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *CoverGetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -24,13 +32,9 @@ func (r *CoverGetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *CoverGetConfigRequest) NewResponse() *CoverConfig {
-	return &CoverConfig{}
 }
 
 type CoverSetConfigRequest struct {
@@ -45,6 +49,14 @@ func (r *CoverSetConfigRequest) Method() string {
 	return "Cover.SetConfig"
 }
 
+func (r *CoverSetConfigRequest) NewTypedResponse() *CoverConfig {
+	return &CoverConfig{}
+}
+
+func (r *CoverSetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *CoverSetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -53,13 +65,9 @@ func (r *CoverSetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *CoverSetConfigRequest) NewResponse() *CoverConfig {
-	return &CoverConfig{}
 }
 
 type CoverConfig struct {
@@ -228,6 +236,14 @@ func (r *CoverGetStatusRequest) Method() string {
 	return "Cover.GetStatus"
 }
 
+func (r *CoverGetStatusRequest) NewTypedResponse() *CoverStatus {
+	return &CoverStatus{}
+}
+
+func (r *CoverGetStatusRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *CoverGetStatusRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -236,13 +252,9 @@ func (r *CoverGetStatusRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *CoverGetStatusRequest) NewResponse() *CoverStatus {
-	return &CoverStatus{}
 }
 
 // CoverStatus describes the current state of the Cover.
@@ -328,6 +340,14 @@ func (r *CoverCalibrateRequest) Method() string {
 	return "Cover.Calibrate"
 }
 
+func (r *CoverCalibrateRequest) NewTypedResponse() *CoverCalibrateRespose {
+	return &CoverCalibrateRespose{}
+}
+
+func (r *CoverCalibrateRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *CoverCalibrateRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -336,13 +356,9 @@ func (r *CoverCalibrateRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *CoverCalibrateRequest) NewResponse() *CoverCalibrateRespose {
-	return &CoverCalibrateRespose{}
 }
 
 // CoverCalibrateRespose is the RPC response for Cover.Calibrate.
@@ -364,6 +380,14 @@ func (r *CoverOpenRequest) Method() string {
 	return "Cover.Open"
 }
 
+func (r *CoverOpenRequest) NewTypedResponse() *CoverOpenResponse {
+	return &CoverOpenResponse{}
+}
+
+func (r *CoverOpenRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *CoverOpenRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -372,13 +396,9 @@ func (r *CoverOpenRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *CoverOpenRequest) NewResponse() *CoverOpenResponse {
-	return &CoverOpenResponse{}
 }
 
 // CoverOpenResponse is the RPC response for Cover.Open.
@@ -400,6 +420,14 @@ func (r *CoverCloseRequest) Method() string {
 	return "Cover.Close"
 }
 
+func (r *CoverCloseRequest) NewTypedResponse() *CoverCloseResponse {
+	return &CoverCloseResponse{}
+}
+
+func (r *CoverCloseRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *CoverCloseRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -408,13 +436,9 @@ func (r *CoverCloseRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *CoverCloseRequest) NewResponse() *CoverCloseResponse {
-	return &CoverCloseResponse{}
 }
 
 // CoverCloseResponse is the RPC response for Cover.Close.
@@ -430,6 +454,14 @@ func (r *CoverStopRequest) Method() string {
 	return "Cover.Stop"
 }
 
+func (r *CoverStopRequest) NewTypedResponse() *CoverStopResponse {
+	return &CoverStopResponse{}
+}
+
+func (r *CoverStopRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *CoverStopRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -438,13 +470,9 @@ func (r *CoverStopRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *CoverStopRequest) NewResponse() *CoverStopResponse {
-	return &CoverStopResponse{}
 }
 
 // CoverStopResponse is the RPC response for Cover.Stop.
@@ -471,6 +499,14 @@ func (r *CoverGoToPositionRequest) Method() string {
 	return "Cover.GoToPosition"
 }
 
+func (r *CoverGoToPositionRequest) NewTypedResponse() *CoverGoToPositionResponse {
+	return &CoverGoToPositionResponse{}
+}
+
+func (r *CoverGoToPositionRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *CoverGoToPositionRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -479,13 +515,9 @@ func (r *CoverGoToPositionRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *CoverGoToPositionRequest) NewResponse() *CoverGoToPositionResponse {
-	return &CoverGoToPositionResponse{}
 }
 
 // CoverGoToPositionResponse is the RPC response for Cover.GoToPosition.
@@ -504,6 +536,14 @@ func (r *CoverResetCountersRequest) Method() string {
 	return "Cover.ResetCounters"
 }
 
+func (r *CoverResetCountersRequest) NewTypedResponse() *CoverResetCountersResponse {
+	return &CoverResetCountersResponse{}
+}
+
+func (r *CoverResetCountersRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 func (r *CoverResetCountersRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
@@ -512,13 +552,9 @@ func (r *CoverResetCountersRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
-}
-
-func (r *CoverResetCountersRequest) NewResponse() *CoverResetCountersResponse {
-	return &CoverResetCountersResponse{}
 }
 
 // CoverResetCountersResponse is the RPC response for Cover.ResetCounters.

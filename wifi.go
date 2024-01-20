@@ -31,8 +31,12 @@ func (r *WifiGetStatusRequest) Method() string {
 	return "Wifi.GetStatus"
 }
 
-func (r *WifiGetStatusRequest) NewResponse() *WifiStatus {
+func (r *WifiGetStatusRequest) NewTypedResponse() *WifiStatus {
 	return &WifiStatus{}
+}
+
+func (r *WifiGetStatusRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *WifiGetStatusRequest) Do(
@@ -43,7 +47,7 @@ func (r *WifiGetStatusRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -130,8 +134,12 @@ func (r *WifiGetConfigRequest) Method() string {
 	return "Wifi.GetConfig"
 }
 
-func (r *WifiGetConfigRequest) NewResponse() *WifiConfig {
+func (r *WifiGetConfigRequest) NewTypedResponse() *WifiConfig {
 	return &WifiConfig{}
+}
+
+func (r *WifiGetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *WifiGetConfigRequest) Do(
@@ -142,7 +150,7 @@ func (r *WifiGetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -155,8 +163,12 @@ func (r *WifiSetConfigRequest) Method() string {
 	return "Wifi.SetConfig"
 }
 
-func (r *WifiSetConfigRequest) NewResponse() *SetConfigResponse {
+func (r *WifiSetConfigRequest) NewTypedResponse() *SetConfigResponse {
 	return &SetConfigResponse{}
+}
+
+func (r *WifiSetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *WifiSetConfigRequest) Do(
@@ -167,7 +179,7 @@ func (r *WifiSetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }

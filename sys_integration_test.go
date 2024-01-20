@@ -8,12 +8,12 @@ import (
 
 func TestSysGetConfig(t *testing.T) {
 	req := &shelly.SysGetConfigRequest{}
-	resp := req.NewResponse()
+	resp := req.NewTypedResponse()
 	GetCallWithVerify(t, req, resp)
 }
 
 func TestSysGetStatus(t *testing.T) {
 	req := &shelly.SysGetStatusRequest{}
-	resp := req.NewResponse()
+	resp := req.NewTypedResponse()
 	GetCallWithVerify(t, req, resp)
 }

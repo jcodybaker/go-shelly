@@ -9,11 +9,11 @@ import (
 	"github.com/mongoose-os/mos/common/mgrpc/frame"
 )
 
-func Do[I RPCRequestBody, O any](
+func Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
-	req I,
-	resp O,
+	req RPCRequestBody,
+	resp any,
 ) (*frame.Response, error) {
 	args, err := json.Marshal(req)
 	if err != nil {

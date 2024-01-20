@@ -15,8 +15,12 @@ func (r *BLEGetStatusRequest) Method() string {
 	return "BLE.GetStatus"
 }
 
-func (r *BLEGetStatusRequest) NewResponse() *BLEStatus {
+func (r *BLEGetStatusRequest) NewTypedResponse() *BLEStatus {
 	return &BLEStatus{}
+}
+
+func (r *BLEGetStatusRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *BLEGetStatusRequest) Do(
@@ -27,7 +31,7 @@ func (r *BLEGetStatusRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -60,8 +64,12 @@ func (r *BLEGetConfigRequest) Method() string {
 	return "BLE.GetConfig"
 }
 
-func (r *BLEGetConfigRequest) NewResponse() *BLEConfig {
+func (r *BLEGetConfigRequest) NewTypedResponse() *BLEConfig {
 	return &BLEConfig{}
+}
+
+func (r *BLEGetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *BLEGetConfigRequest) Do(
@@ -72,7 +80,7 @@ func (r *BLEGetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -83,8 +91,12 @@ func (r *BLESetConfigRequest) Method() string {
 	return "BLE.SetConfig"
 }
 
-func (r *BLESetConfigRequest) NewResponse() *SetConfigResponse {
+func (r *BLESetConfigRequest) NewTypedResponse() *SetConfigResponse {
 	return &SetConfigResponse{}
+}
+
+func (r *BLESetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *BLESetConfigRequest) Do(
@@ -95,7 +107,7 @@ func (r *BLESetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }

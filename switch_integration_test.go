@@ -10,7 +10,7 @@ func TestSwitchGetConfig(t *testing.T) {
 	req := &shelly.SwitchGetConfigRequest{
 		ID: 0,
 	}
-	resp := req.NewResponse()
+	resp := req.NewTypedResponse()
 	GetCallWithVerify(t, req, resp)
 }
 
@@ -18,6 +18,6 @@ func TestSwitchGetStatus(t *testing.T) {
 	req := &shelly.SwitchGetStatusRequest{
 		ID: 0,
 	}
-	resp := req.NewResponse()
+	resp := req.NewTypedResponse()
 	GetCallWithVerify(t, req, resp)
 }

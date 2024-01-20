@@ -18,8 +18,12 @@ func (r *EthGetStatusRequest) Method() string {
 	return "Eth.GetStatus"
 }
 
-func (r *EthGetStatusRequest) NewResponse() *EthStatus {
+func (r *EthGetStatusRequest) NewTypedResponse() *EthStatus {
 	return &EthStatus{}
+}
+
+func (r *EthGetStatusRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *EthGetStatusRequest) Do(
@@ -30,7 +34,7 @@ func (r *EthGetStatusRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -61,8 +65,12 @@ func (r *EthGetConfigRequest) Method() string {
 	return "Eth.GetConfig"
 }
 
-func (r *EthGetConfigRequest) NewResponse() *EthConfig {
+func (r *EthGetConfigRequest) NewTypedResponse() *EthConfig {
 	return &EthConfig{}
+}
+
+func (r *EthGetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *EthGetConfigRequest) Do(
@@ -73,7 +81,7 @@ func (r *EthGetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -86,8 +94,12 @@ func (r *EthSetConfigRequest) Method() string {
 	return "Eth.SetConfig"
 }
 
-func (r *EthSetConfigRequest) NewResponse() *SetConfigResponse {
+func (r *EthSetConfigRequest) NewTypedResponse() *SetConfigResponse {
 	return &SetConfigResponse{}
+}
+
+func (r *EthSetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *EthSetConfigRequest) Do(
@@ -98,7 +110,7 @@ func (r *EthSetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }

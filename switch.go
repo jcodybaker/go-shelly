@@ -24,13 +24,17 @@ func (r *SwitchGetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
 
-func (r *SwitchGetConfigRequest) NewResponse() *SwitchConfig {
+func (r *SwitchGetConfigRequest) NewTypedResponse() *SwitchConfig {
 	return &SwitchConfig{}
+}
+
+func (r *SwitchGetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 type SwitchSetConfigRequest struct {
@@ -53,13 +57,17 @@ func (r *SwitchSetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
 
-func (r *SwitchSetConfigRequest) NewResponse() *SwitchConfig {
+func (r *SwitchSetConfigRequest) NewTypedResponse() *SwitchConfig {
 	return &SwitchConfig{}
+}
+
+func (r *SwitchSetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 type SwitchGetStatusRequest struct {
@@ -79,13 +87,17 @@ func (r *SwitchGetStatusRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
 
-func (r *SwitchGetStatusRequest) NewResponse() *SwitchStatus {
+func (r *SwitchGetStatusRequest) NewTypedResponse() *SwitchStatus {
 	return &SwitchStatus{}
+}
+
+func (r *SwitchGetStatusRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 type SwitchSetRequest struct {
@@ -116,8 +128,12 @@ func (r *SwitchSetRequest) Do(
 	return resp, raw, err
 }
 
-func (r *SwitchSetRequest) NewResponse() *SwitchActionResponse {
+func (r *SwitchSetRequest) NewTypedResponse() *SwitchActionResponse {
 	return &SwitchActionResponse{}
+}
+
+func (r *SwitchSetRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 type SwitchToggleRequest struct {
@@ -142,8 +158,12 @@ func (r *SwitchToggleRequest) Do(
 	return resp, raw, err
 }
 
-func (r *SwitchToggleRequest) NewResponse() *SwitchActionResponse {
+func (r *SwitchToggleRequest) NewTypedResponse() *SwitchActionResponse {
 	return &SwitchActionResponse{}
+}
+
+func (r *SwitchToggleRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 type SwitchConfig struct {

@@ -18,8 +18,12 @@ func (r *InputGetStatusRequest) Method() string {
 	return "Input.GetStatus"
 }
 
-func (r *InputGetStatusRequest) NewResponse() *InputStatus {
+func (r *InputGetStatusRequest) NewTypedResponse() *InputStatus {
 	return &InputStatus{}
+}
+
+func (r *InputGetStatusRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *InputGetStatusRequest) Do(
@@ -30,7 +34,7 @@ func (r *InputGetStatusRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -66,8 +70,12 @@ func (r *InputGetConfigRequest) Method() string {
 	return "Input.GetConfig"
 }
 
-func (r *InputGetConfigRequest) NewResponse() *InputConfig {
+func (r *InputGetConfigRequest) NewTypedResponse() *InputConfig {
 	return &InputConfig{}
+}
+
+func (r *InputGetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *InputGetConfigRequest) Do(
@@ -78,7 +86,7 @@ func (r *InputGetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -145,8 +153,12 @@ func (r *InputSetConfigRequest) Method() string {
 	return "Input.SetConfig"
 }
 
-func (r *InputSetConfigRequest) NewResponse() *SetConfigResponse {
+func (r *InputSetConfigRequest) NewTypedResponse() *SetConfigResponse {
 	return &SetConfigResponse{}
+}
+
+func (r *InputSetConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *InputSetConfigRequest) Do(
@@ -157,7 +169,7 @@ func (r *InputSetConfigRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
@@ -174,8 +186,12 @@ func (r *InputCheckExpressionRequest) Method() string {
 	return "Input.CheckExpression"
 }
 
-func (r *InputCheckExpressionRequest) NewResponse() *InputCheckExpressionResponse {
+func (r *InputCheckExpressionRequest) NewTypedResponse() *InputCheckExpressionResponse {
 	return &InputCheckExpressionResponse{}
+}
+
+func (r *InputCheckExpressionRequest) NewResponse() any {
+	return r.NewTypedResponse()
 }
 
 func (r *InputCheckExpressionRequest) Do(
@@ -186,7 +202,7 @@ func (r *InputCheckExpressionRequest) Do(
 	*frame.Response,
 	error,
 ) {
-	resp := r.NewResponse()
+	resp := r.NewTypedResponse()
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
