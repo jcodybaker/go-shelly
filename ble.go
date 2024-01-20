@@ -85,7 +85,9 @@ func (r *BLEGetConfigRequest) Do(
 	return resp, raw, err
 }
 
-type BLESetConfigRequest struct{}
+type BLESetConfigRequest struct {
+	Config BLERPCConfig `json:"config"`
+}
 
 func (r *BLESetConfigRequest) Method() string {
 	return "BLE.SetConfig"
