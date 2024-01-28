@@ -618,3 +618,122 @@ func (r *ShellyGetConfigRequest) Do(
 	raw, err := Do(ctx, c, r, resp)
 	return resp, raw, err
 }
+
+type ShellyListMethodsResponse struct {
+	Methods []string `json:"methods,omitempty"`
+}
+
+type ShellyListMethodsRequest struct{}
+
+func (r *ShellyListMethodsRequest) Method() string {
+	return "Shelly.ListMethods"
+}
+
+func (r *ShellyListMethodsRequest) NewTypedResponse() *ShellyListMethodsResponse {
+	return &ShellyListMethodsResponse{}
+}
+
+func (r *ShellyListMethodsRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *ShellyListMethodsRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*ShellyListMethodsResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
+}
+
+type ShellyComponent struct {
+	// Key (in format <type>:<cid>, for example boolean:200)
+	Key string `json:"key"`
+
+	// Status, will be omitted if "status" is not specified in the include property.
+	Status map[string]interface{}
+
+	// Config, will be omitted if "config" is not specified in the include property.
+	Config map[string]interface{}
+}
+
+type ShellyGetComponentsResponse struct {
+	// Components is a list of ShellyComponent objects.
+	Components []*ShellyComponent `json:"components,omitempty"`
+
+	// CfgRev is the configuration revision number from Sys.
+	CfgRev int `json:"cfg_rev,omitempty"`
+
+	// Offset is the index of the first component in the result.
+	Offset int `json:"offset"`
+
+	// Total number of components with all filters applied.
+	Total int `json:"total"`
+}
+
+type ShellyGetComponentsRequest struct {
+	// Offset is the dndex of the component from which to start generating the result (Optional).
+	Offset *int `json:"offset,omitempty"`
+
+	// Include which properties of the component:
+	// - "status" will include the component's status
+	// - "config" - the config.
+	// The keys are always included. Combination of both (["config", "status"]) to get the full
+	// config and status of each component. (Optional).
+	Include []string `json:"include,omitempty"`
+
+	// DynamicOnly can be set true to include only dynamic components, default false. (Optional)
+	DynamicOnly *bool `json:"dynamic_only,omitempty"`
+}
+
+func (r *ShellyGetComponentsRequest) Method() string {
+	return "Shelly.GetComponents"
+}
+
+func (r *ShellyGetComponentsRequest) NewTypedResponse() *ShellyGetComponentsResponse {
+	return &ShellyGetComponentsResponse{}
+}
+
+func (r *ShellyGetComponentsRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *ShellyGetComponentsRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*ShellyGetComponentsResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, r, resp)
+	return resp, raw, err
+}
+
+func (r *ShellyGetComponentsRequest) DoAll(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+) (
+	*ShellyGetComponentsResponse,
+	error,
+) {
+	total := 1
+	composed := r.NewTypedResponse()
+	for have := 0; have < total; {
+		resp := r.NewTypedResponse()
+		_, err := Do(ctx, c, r, resp)
+		if err != nil {
+			return nil, err
+		}
+		composed.Components = append(composed.Components, resp.Components...)
+		total = resp.Total
+		have += len(resp.Components)
+		composed.CfgRev = resp.CfgRev
+	}
+	return composed, nil
+}
