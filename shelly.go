@@ -420,6 +420,20 @@ func NewShellySetAuthRequest(deviceID, password string) *ShellySetAuthRequest {
 	return out
 }
 
+// BuildShellyAuthRequest builds the request, fetching the deviceID for realm.
+func BuildShellyAuthRequest(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	password string,
+) (*ShellySetAuthRequest, error) {
+	resp, _, err := (&ShellyGetDeviceInfoRequest{}).Do(ctx, c)
+	if err != nil {
+		return nil, err
+	}
+	deviceID := resp.ID
+	return NewShellySetAuthRequest(deviceID, password), nil
+}
+
 type ShellyPutUserCARequest struct {
 	// Contents of the PEM file (null if you want to delete the existing data). (Required)
 	Data *string
