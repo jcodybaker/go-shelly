@@ -378,7 +378,7 @@ type ShellySetAuthRequest struct {
 	Realm string `json:"realm,omitempty"`
 
 	// HA1 "user:realm:password" encoded in SHA256 (null to disable authentication).
-	HA1 *string `json:"ha1,omitempty"`
+	HA1 *string `json:"ha1"`
 }
 
 func (r *ShellySetAuthRequest) Method() string {
