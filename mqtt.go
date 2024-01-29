@@ -26,13 +26,14 @@ func (r *MQTTSetConfigRequest) NewResponse() any {
 func (r *MQTTSetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*RPCEmptyResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -55,13 +56,14 @@ func (r *MQTTGetConfigRequest) NewResponse() any {
 func (r *MQTTGetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*RPCEmptyResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -118,13 +120,14 @@ func (r *MQTTGetStatusRequest) NewResponse() any {
 func (r *MQTTGetStatusRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*RPCEmptyResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 

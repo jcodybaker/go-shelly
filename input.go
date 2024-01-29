@@ -29,13 +29,14 @@ func (r *InputGetStatusRequest) NewResponse() any {
 func (r *InputGetStatusRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*InputStatus,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -81,13 +82,14 @@ func (r *InputGetConfigRequest) NewResponse() any {
 func (r *InputGetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*InputConfig,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -164,13 +166,14 @@ func (r *InputSetConfigRequest) NewResponse() any {
 func (r *InputSetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*SetConfigResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -197,13 +200,14 @@ func (r *InputCheckExpressionRequest) NewResponse() any {
 func (r *InputCheckExpressionRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*InputCheckExpressionResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 

@@ -26,13 +26,14 @@ func (r *CloudSetConfigRequest) NewResponse() any {
 func (r *CloudSetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*SetConfigResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -61,13 +62,14 @@ func (r *CloudGetConfigRequest) NewResponse() any {
 func (r *CloudGetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*RPCEmptyResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -92,12 +94,13 @@ func (r *CloudGetStatusRequest) NewResponse() any {
 func (r *CloudGetStatusRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*RPCEmptyResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }

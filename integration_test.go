@@ -19,7 +19,7 @@ func GetCallWithVerify(t *testing.T, req shelly.RPCRequestBody, respBody interfa
 	require.NoError(t, err)
 	defer c.Disconnect(ctx)
 
-	respFrame, err := shelly.Do(ctx, c, req, respBody)
+	respFrame, err := shelly.Do(ctx, c, nil, req, respBody)
 	require.NoError(t, err)
 	fmt.Println(string(respFrame.Response))
 

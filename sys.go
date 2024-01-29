@@ -17,13 +17,14 @@ func (r *SysGetConfigRequest) Method() string {
 func (r *SysGetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*SysConfig,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -47,13 +48,14 @@ func (r *SysSetConfigRequest) Method() string {
 func (r *SysSetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*SetConfigResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -74,13 +76,14 @@ func (r *SysGetStatusRequest) Method() string {
 func (r *SysGetStatusRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*SysStatus,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 

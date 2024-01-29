@@ -42,13 +42,14 @@ func (r *WifiGetStatusRequest) NewResponse() any {
 func (r *WifiGetStatusRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*WifiStatus,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -145,13 +146,14 @@ func (r *WifiGetConfigRequest) NewResponse() any {
 func (r *WifiGetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*WifiConfig,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -174,12 +176,13 @@ func (r *WifiSetConfigRequest) NewResponse() any {
 func (r *WifiSetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*SetConfigResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }

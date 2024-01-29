@@ -12,6 +12,7 @@ import (
 func Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 	req RPCRequestBody,
 	resp any,
 ) (*frame.Response, error) {
@@ -23,7 +24,7 @@ func Do(
 		Cmd:  req.Method(),
 		Args: json.RawMessage(args),
 	}
-	rawResp, err := c.Call(ctx, "", command, nil)
+	rawResp, err := c.Call(ctx, "", command, credsCallback)
 	if err != nil {
 		return rawResp, fmt.Errorf("making shelly rpc request: %w", err)
 	}

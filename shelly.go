@@ -32,13 +32,14 @@ func (r *ShellyGetStatusRequest) NewResponse() any {
 func (r *ShellyGetStatusRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*ShellyGetStatusResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -198,13 +199,14 @@ func (r *ShellyGetDeviceInfoRequest) NewResponse() any {
 func (r *ShellyGetDeviceInfoRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*ShellyGetDeviceInfoResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -270,13 +272,14 @@ func (r *ShellyCheckForUpdateRequest) NewResponse() any {
 func (r *ShellyCheckForUpdateRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*ShellyCheckForUpdateResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -322,13 +325,14 @@ func (r *ShellyFactoryResetRequest) NewResponse() any {
 func (r *ShellyFactoryResetRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*RPCEmptyResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -359,13 +363,14 @@ func (r *ShellyRebootRequest) NewResponse() any {
 func (r *ShellyRebootRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*RPCEmptyResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -395,13 +400,14 @@ func (r *ShellySetAuthRequest) NewResponse() any {
 func (r *ShellySetAuthRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*RPCEmptyResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -425,7 +431,7 @@ func BuildShellyAuthRequest(
 	c mgrpc.MgRPC,
 	password string,
 ) (*ShellySetAuthRequest, error) {
-	resp, _, err := (&ShellyGetDeviceInfoRequest{}).Do(ctx, c)
+	resp, _, err := (&ShellyGetDeviceInfoRequest{}).Do(ctx, c, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -622,13 +628,14 @@ func (r *ShellyGetConfigRequest) NewResponse() any {
 func (r *ShellyGetConfigRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*ShellyGetConfigResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -653,13 +660,14 @@ func (r *ShellyListMethodsRequest) NewResponse() any {
 func (r *ShellyListMethodsRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*ShellyListMethodsResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
@@ -718,19 +726,21 @@ func (r *ShellyGetComponentsRequest) NewResponse() any {
 func (r *ShellyGetComponentsRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*ShellyGetComponentsResponse,
 	*frame.Response,
 	error,
 ) {
 	resp := r.NewTypedResponse()
-	raw, err := Do(ctx, c, r, resp)
+	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
 
 func (r *ShellyGetComponentsRequest) DoAll(
 	ctx context.Context,
 	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
 ) (
 	*ShellyGetComponentsResponse,
 	error,
@@ -739,7 +749,7 @@ func (r *ShellyGetComponentsRequest) DoAll(
 	composed := r.NewTypedResponse()
 	for have := 0; have < total; {
 		resp := r.NewTypedResponse()
-		_, err := Do(ctx, c, r, resp)
+		_, err := Do(ctx, c, credsCallback, r, resp)
 		if err != nil {
 			return nil, err
 		}
