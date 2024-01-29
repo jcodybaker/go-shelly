@@ -3,7 +3,6 @@ package shelly
 import (
 	"context"
 	"crypto/sha256"
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
 
@@ -415,8 +414,8 @@ func NewShellySetAuthRequest(deviceID, password string) *ShellySetAuthRequest {
 		return out
 	}
 	out.HA1 = StrPtr(
-		hex.EncodeToString(
-			sha256.New().Sum([]byte(out.User + ":" + out.Realm + ":" + password))))
+		fmt.Sprintf("%x",
+			sha256.Sum256([]byte(out.User+":"+out.Realm+":"+password))))
 	return out
 }
 
