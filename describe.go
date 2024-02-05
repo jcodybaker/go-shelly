@@ -56,10 +56,10 @@ func (s *DeviceSpecs) IsMultiProfile() bool {
 	return len(s.Profiles) > 0
 }
 
-// MDNSAppToDeviceSpecs translates the "app" field from an mDNS response to a device. The
+// AppToDeviceSpecs translates the "app" field from an mDNS response to a device. The
 // "profile" parameter is optional. For multi-profile devices, without a profile parameter
 // the aspirational capacity is returned but the actual specs depend on the active profile.
-func MDNSAppToDeviceSpecs(mdnsApp, profile string) (DeviceSpecs, error) {
+func AppToDeviceSpecs(mdnsApp, profile string) (DeviceSpecs, error) {
 	switch mdnsApp {
 	// These device "app" values have been confirmed.
 	case "Pro3":
@@ -93,7 +93,6 @@ func MDNSAppToDeviceSpecs(mdnsApp, profile string) (DeviceSpecs, error) {
 			return DeviceSpecs{}, ErrUnknownDeviceProfile
 		}
 		return DeviceSpecs{
-			Inputs:             1,
 			Switches:           1,
 			Scripts:            10,
 			SwitchEnergy:       true,
