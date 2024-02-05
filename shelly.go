@@ -96,6 +96,13 @@ func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &theRest); err != nil {
 		return err
 	}
+	if v, ok := theRest["ble"]; ok {
+		var s BLEStatus
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.BLE = &s
+	}
 	if v, ok := theRest["sys"]; ok {
 		var s SysStatus
 		if err := json.Unmarshal(v, &s); err != nil {
@@ -527,6 +534,13 @@ func (r *ShellyGetConfigResponse) UnmarshalJSON(b []byte) error {
 	theRest := make(map[string]json.RawMessage)
 	if err := json.Unmarshal(b, &theRest); err != nil {
 		return err
+	}
+	if v, ok := theRest["ble"]; ok {
+		var s BLEConfig
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.BLE = &s
 	}
 	if v, ok := theRest["sys"]; ok {
 		var s SysConfig
