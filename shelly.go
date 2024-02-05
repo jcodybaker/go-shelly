@@ -60,17 +60,17 @@ type ShellyGetStatusResponse struct {
 
 	// Scripts []*ScriptStatus
 
-	Inputs []*InputStatus
+	Inputs []*InputStatus `json:"inputs,omitempty"`
 
 	// ModBus *ModBusStatus
 
 	// Voltmeters []*VoltmeterStatus
 
-	Covers []*CoverStatus
+	Covers []*CoverStatus `json:"covers,omitempty"`
 
-	Switches []*SwitchStatus
+	Switches []*SwitchStatus `json:"switches,omitempty"`
 
-	Lights []*LightStatus
+	Lights []*LightStatus `json:"lights,omitempty"`
 
 	// DevicePowers []*DevicePowerStatus
 
@@ -492,17 +492,17 @@ type ShellyGetConfigResponse struct {
 
 	// Scripts []*ScriptConfig
 
-	Inputs []*InputConfig
+	Inputs []*InputConfig `json:"inputs,omitempty"`
 
 	// ModBus *ModBusConfig
 
 	// Voltmeters []*VoltmeterConfig
 
-	Covers []*CoverConfig
+	Covers []*CoverConfig `json:"covers,omitempty"`
 
-	Switches []*SwitchConfig
+	Switches []*SwitchConfig `json:"switches,omitempty"`
 
-	Lights []*LightConfig
+	Lights []*LightConfig `json:"lights,omitempty"`
 
 	// DevicePowers []*DevicePowerConfig
 
