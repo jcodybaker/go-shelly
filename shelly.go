@@ -1,10 +1,12 @@
 package shelly
 
 import (
+	"bufio"
 	"context"
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"io"
 
 	"github.com/mongoose-os/mos/common/mgrpc"
 	"github.com/mongoose-os/mos/common/mgrpc/frame"
@@ -490,6 +492,51 @@ type ShellyPutUserCARequest struct {
 
 func (r *ShellyPutUserCARequest) Method() string {
 	return "Shelly.PutUserCA"
+}
+
+func (r *ShellyPutUserCARequest) NewTypedResponse() *RPCEmptyResponse {
+	return &RPCEmptyResponse{}
+}
+
+func (r *ShellyPutUserCARequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *ShellyPutUserCARequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+) (
+	*RPCEmptyResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, credsCallback, r, resp)
+	return resp, raw, err
+}
+
+// ShellyPutUserCA is a helper method which uploads the provided data to the Shelly.PutUserCA method,
+// line-by-line to accomodate limits on payload size.
+func ShellyPutUserCA(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+	data io.Reader,
+) error {
+	s := bufio.NewScanner(data)
+	req := &ShellyPutUserCARequest{}
+	for s.Scan() {
+		req.Data = StrPtr(s.Text())
+		if _, _, err := req.Do(ctx, c, credsCallback); err != nil {
+			return err
+		}
+		req.Append = true
+	}
+	if err := s.Err(); err != nil {
+		return fmt.Errorf("reading input data for Shelly.PutUserCA: %w", err)
+	}
+	return nil
 }
 
 type ShellyPutTLSClientCertRequest struct {
