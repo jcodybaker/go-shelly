@@ -821,6 +821,32 @@ type ShellyDetectLocationResponse struct {
 
 type ShellyDetectLocationRequest struct{}
 
+func (r *ShellyDetectLocationRequest) Method() string {
+	return "Shelly.DetectLocation"
+}
+
+func (r *ShellyDetectLocationRequest) NewTypedResponse() *ShellyDetectLocationResponse {
+	return &ShellyDetectLocationResponse{}
+}
+
+func (r *ShellyDetectLocationRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *ShellyDetectLocationRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+) (
+	*ShellyDetectLocationResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, credsCallback, r, resp)
+	return resp, raw, err
+}
+
 type ShellyComponent struct {
 	// Key (in format <type>:<cid>, for example boolean:200)
 	Key string `json:"key"`
