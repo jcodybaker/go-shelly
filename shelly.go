@@ -315,6 +315,18 @@ type ShellyUpdateRequest struct {
 	URL string `json:"url"`
 }
 
+func (r *ShellyUpdateRequest) Method() string {
+	return "Shelly.Update"
+}
+
+func (r *ShellyUpdateRequest) NewTypedResponse() *RPCEmptyResponse {
+	return &RPCEmptyResponse{}
+}
+
+func (r *ShellyUpdateRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
 type ShellyFactoryResetRequest struct{}
 
 func (r *ShellyFactoryResetRequest) Method() string {
@@ -654,6 +666,7 @@ func (r *ShellyGetConfigRequest) Do(
 }
 
 type ShellyListMethodsResponse struct {
+	// Methods is a list of allowed methods.
 	Methods []string `json:"methods,omitempty"`
 }
 
@@ -684,6 +697,129 @@ func (r *ShellyListMethodsRequest) Do(
 	raw, err := Do(ctx, c, credsCallback, r, resp)
 	return resp, raw, err
 }
+
+type ShellyListProfilesComponent struct {
+	// Type of component.
+	Type string `json:"type"`
+	// Count of component instances.
+	Count int `json:"count"`
+}
+
+type ShellyListProfilesResponse struct {
+	// Profiles is a KV mapping of available profiles to an enumeration of their components.
+	Profiles map[string][]ShellyListProfilesComponent `json:"profiles,omitempty"`
+}
+
+type ShellyListProfilesRequest struct{}
+
+func (r *ShellyListProfilesRequest) Method() string {
+	return "Shelly.ListProfiles"
+}
+
+func (r *ShellyListProfilesRequest) NewTypedResponse() *ShellyListProfilesResponse {
+	return &ShellyListProfilesResponse{}
+}
+
+func (r *ShellyListProfilesRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *ShellyListProfilesRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+) (
+	*ShellyListProfilesResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, credsCallback, r, resp)
+	return resp, raw, err
+}
+
+type ShellySetProfileResponse struct {
+	// ProfileWas will be set to the profile before updating. If the new value is different
+	// than the profile_was value, the device will immediately reboot.
+	ProfileWas string `json:"profile_was,omitempty"`
+}
+
+type ShellySetProfileRequest struct {
+	// Profile is the name of the profile to set.
+	Profile string `json:"profile"`
+}
+
+func (r *ShellySetProfileRequest) Method() string {
+	return "Shelly.SetProfile"
+}
+
+func (r *ShellySetProfileRequest) NewTypedResponse() *ShellySetProfileResponse {
+	return &ShellySetProfileResponse{}
+}
+
+func (r *ShellySetProfileRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *ShellySetProfileRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+) (
+	*ShellySetProfileResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, credsCallback, r, resp)
+	return resp, raw, err
+}
+
+type ShellyListTimezonesResponse struct {
+	// Timezones is a list of available timezones.
+	Timezones []string `json:"timezones"`
+}
+
+type ShellyListTimezonesRequest struct{}
+
+func (r *ShellyListTimezonesRequest) Method() string {
+	return "Shelly.ListTimezones"
+}
+
+func (r *ShellyListTimezonesRequest) NewTypedResponse() *ShellyListTimezonesResponse {
+	return &ShellyListTimezonesResponse{}
+}
+
+func (r *ShellyListTimezonesRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *ShellyListTimezonesRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+) (
+	*ShellyListTimezonesResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, credsCallback, r, resp)
+	return resp, raw, err
+}
+
+type ShellyDetectLocationResponse struct {
+	// TZ is the timezone of the detected location (null if not available)
+	TZ *string `json:"tz,omitempty"`
+
+	// Lat is the latitude of the detected location in degrees (null if not available)
+	Lat *float64 `json:"lat,omitempty"`
+
+	// Lon is the longitude of the detected location in degrees (null if not available)
+	Lon *float64 `json:"lon,omitempty"`
+}
+
+type ShellyDetectLocationRequest struct{}
 
 type ShellyComponent struct {
 	// Key (in format <type>:<cid>, for example boolean:200)
