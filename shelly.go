@@ -484,7 +484,7 @@ func BuildShellyAuthRequest(
 
 type ShellyPutUserCARequest struct {
 	// Contents of the PEM file (null if you want to delete the existing data). (Required)
-	Data *string `json:"data,omitempty"`
+	Data *string `json:"data"`
 
 	// Append is true if more data will be appended afterwards, default false.
 	Append bool `json:"append,omitempty"`
@@ -541,26 +541,117 @@ func ShellyPutUserCA(
 
 type ShellyPutTLSClientCertRequest struct {
 	// Contents of the PEM file (null if you want to delete the existing data). (Required)
-	Data *string
+	Data *string `json:"data"`
 
 	// Append is true if more data will be appended afterwards, default false.
-	Append bool
+	Append bool `json:"append,omitempty"`
 }
 
 func (r *ShellyPutTLSClientCertRequest) Method() string {
 	return "Shelly.PutTLSClientCert"
 }
 
+func (r *ShellyPutTLSClientCertRequest) NewTypedResponse() *RPCEmptyResponse {
+	return &RPCEmptyResponse{}
+}
+
+func (r *ShellyPutTLSClientCertRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *ShellyPutTLSClientCertRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+) (
+	*RPCEmptyResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, credsCallback, r, resp)
+	return resp, raw, err
+}
+
+// ShellyPutTLSClientCert is a helper method which uploads the provided data to the
+// Shelly.PutTLSClientCert method, line-by-line to accomodate limits on payload size.
+func ShellyPutTLSClientCert(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+	data io.Reader,
+) error {
+	s := bufio.NewScanner(data)
+	req := &ShellyPutTLSClientCertRequest{}
+	for s.Scan() {
+		req.Data = StrPtr(s.Text())
+		if _, _, err := req.Do(ctx, c, credsCallback); err != nil {
+			return err
+		}
+		req.Append = true
+	}
+	if err := s.Err(); err != nil {
+		return fmt.Errorf("reading input data for Shelly.TLSClientCert: %w", err)
+	}
+	return nil
+}
+
 type ShellyPutTLSClientKeyRequest struct {
 	// Contents of the PEM file (null if you want to delete the existing data). (Required)
-	Data *string
+	Data *string `json:"data"`
 
 	// Append is true if more data will be appended afterwards, default false.
-	Append bool
+	Append bool `json:"append,omitempty"`
 }
 
 func (r *ShellyPutTLSClientKeyRequest) Method() string {
 	return "Shelly.PutTLSClientKey"
+}
+
+
+func (r *ShellyPutTLSClientKeyRequest) NewTypedResponse() *RPCEmptyResponse {
+	return &RPCEmptyResponse{}
+}
+
+func (r *ShellyPutTLSClientKeyRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *ShellyPutTLSClientKeyRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+) (
+	*RPCEmptyResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, credsCallback, r, resp)
+	return resp, raw, err
+}
+
+// ShellyPutTLSClientKey is a helper method which uploads the provided data to the
+// Shelly.PutTLSClientKey method, line-by-line to accomodate limits on payload size.
+func ShellyPutTLSClientKey(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+	data io.Reader,
+) error {
+	s := bufio.NewScanner(data)
+	req := &ShellyPutTLSClientKeyRequest{}
+	for s.Scan() {
+		req.Data = StrPtr(s.Text())
+		if _, _, err := req.Do(ctx, c, credsCallback); err != nil {
+			return err
+		}
+		req.Append = true
+	}
+	if err := s.Err(); err != nil {
+		return fmt.Errorf("reading input data for Shelly.PutTLSClientKey: %w", err)
+	}
+	return nil
 }
 
 type ShellyGetConfigResponse struct {
