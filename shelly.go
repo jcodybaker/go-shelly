@@ -309,10 +309,10 @@ type FirmwareUpdateVersion struct {
 type ShellyUpdateRequest struct {
 	// Stage is the the type of the new version - either stable or beta. By default updates to
 	// stable version. (Optional)
-	Stage string `json:"stage"`
+	Stage string `json:"stage,omitempty"`
 
 	// URL address of the update. (Optional). If set Stage must be "".
-	URL string `json:"url"`
+	URL string `json:"url,omitempty"`
 }
 
 func (r *ShellyUpdateRequest) Method() string {
