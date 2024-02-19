@@ -141,7 +141,7 @@ type ScriptCreateRequest struct {
 }
 
 func (r *ScriptCreateRequest) Method() string {
-	return "Script.GetStatus"
+	return "Script.Create"
 }
 
 func (r *ScriptCreateRequest) Do(
