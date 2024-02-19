@@ -358,11 +358,13 @@ type ScriptListResponse struct {
 	Scripts []ScriptListScript
 }
 
-func (r *ScriptListScript) Method() string {
+type ScriptListRequest struct{}
+
+func (r *ScriptListRequest) Method() string {
 	return "Script.List"
 }
 
-func (r *ScriptListScript) Do(
+func (r *ScriptListRequest) Do(
 	ctx context.Context,
 	c mgrpc.MgRPC,
 	credsCallback mgrpc.GetCredsCallback,
@@ -376,11 +378,11 @@ func (r *ScriptListScript) Do(
 	return resp, raw, err
 }
 
-func (r *ScriptListScript) NewTypedResponse() *ScriptListResponse {
+func (r *ScriptListRequest) NewTypedResponse() *ScriptListResponse {
 	return &ScriptListResponse{}
 }
 
-func (r *ScriptListScript) NewResponse() any {
+func (r *ScriptListRequest) NewResponse() any {
 	return r.NewTypedResponse()
 }
 
