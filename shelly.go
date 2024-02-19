@@ -527,7 +527,7 @@ func ShellyPutUserCA(
 	s := bufio.NewScanner(data)
 	req := &ShellyPutUserCARequest{}
 	for s.Scan() {
-		req.Data = StrPtr(s.Text())
+		req.Data = StrPtr(s.Text() + "\n")
 		if _, _, err := req.Do(ctx, c, credsCallback); err != nil {
 			return err
 		}
@@ -540,7 +540,7 @@ func ShellyPutUserCA(
 }
 
 type ShellyPutTLSClientCertRequest struct {
-	// Contents of the PEM file (null if you want to delete the existing data). (Required)
+	// Data contents of the PEM file (null if you want to delete the existing data). (Required)
 	Data *string `json:"data"`
 
 	// Append is true if more data will be appended afterwards, default false.
@@ -584,7 +584,7 @@ func ShellyPutTLSClientCert(
 	s := bufio.NewScanner(data)
 	req := &ShellyPutTLSClientCertRequest{}
 	for s.Scan() {
-		req.Data = StrPtr(s.Text())
+		req.Data = StrPtr(s.Text() + "\n")
 		if _, _, err := req.Do(ctx, c, credsCallback); err != nil {
 			return err
 		}
@@ -607,7 +607,6 @@ type ShellyPutTLSClientKeyRequest struct {
 func (r *ShellyPutTLSClientKeyRequest) Method() string {
 	return "Shelly.PutTLSClientKey"
 }
-
 
 func (r *ShellyPutTLSClientKeyRequest) NewTypedResponse() *RPCEmptyResponse {
 	return &RPCEmptyResponse{}
@@ -642,7 +641,7 @@ func ShellyPutTLSClientKey(
 	s := bufio.NewScanner(data)
 	req := &ShellyPutTLSClientKeyRequest{}
 	for s.Scan() {
-		req.Data = StrPtr(s.Text())
+		req.Data = StrPtr(s.Text() + "\n")
 		if _, _, err := req.Do(ctx, c, credsCallback); err != nil {
 			return err
 		}
