@@ -361,6 +361,28 @@ func (r *ShellyResetWiFiConfigRequest) Method() string {
 	return "Shelly.ResetWiFiConfig"
 }
 
+func (r *ShellyResetWiFiConfigRequest) NewTypedResponse() *RPCEmptyResponse {
+	return &RPCEmptyResponse{}
+}
+
+func (r *ShellyResetWiFiConfigRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+func (r *ShellyResetWiFiConfigRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+) (
+	*RPCEmptyResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, credsCallback, r, resp)
+	return resp, raw, err
+}
+
 type ShellyRebootRequest struct {
 	// DelayMS sets the delay until reboot in milliseconds. Any values are valid but the minimum
 	// is capped at 500 ms. Default value: 1000 ms. (Optional)
