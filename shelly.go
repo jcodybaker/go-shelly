@@ -484,10 +484,10 @@ func BuildShellyAuthRequest(
 
 type ShellyPutUserCARequest struct {
 	// Contents of the PEM file (null if you want to delete the existing data). (Required)
-	Data *string
+	Data *string `json:"data,omitempty"`
 
 	// Append is true if more data will be appended afterwards, default false.
-	Append bool
+	Append bool `json:"append,omitempty"`
 }
 
 func (r *ShellyPutUserCARequest) Method() string {
