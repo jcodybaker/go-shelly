@@ -292,10 +292,10 @@ func (r *ShellyCheckForUpdateRequest) Do(
 
 type ShellyCheckForUpdateResponse struct {
 	// Stable indicates the new stable version of the firmware.
-	Stable FirmwareUpdateVersion
+	Stable *FirmwareUpdateVersion `json:"stable,omitempty"`
 
 	// Beta indicates the new beta version of the firmware.
-	Beta FirmwareUpdateVersion
+	Beta *FirmwareUpdateVersion `json:"beta,omitempty"`
 }
 
 type FirmwareUpdateVersion struct {
