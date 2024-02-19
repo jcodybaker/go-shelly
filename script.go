@@ -229,3 +229,188 @@ func ScriptPutCode(
 	}
 	return nil
 }
+
+type ScriptEvalResponse struct {
+	Result string `json:"result"`
+}
+
+type ScriptEvalRequest struct {
+	// ID of the script component instance.
+	ID int `json:"id"`
+
+	// Argument to evaluate (the length must be greater than 0). Required
+	// Note: the examples don't show this field?
+	Code string `json:"code"`
+}
+
+func (r *ScriptEvalRequest) Method() string {
+	return "Script.Eval"
+}
+
+func (r *ScriptEvalRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+) (
+	*ScriptEvalResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, credsCallback, r, resp)
+	return resp, raw, err
+}
+
+func (r *ScriptEvalRequest) NewTypedResponse() *ScriptEvalResponse {
+	return &ScriptEvalResponse{}
+}
+
+func (r *ScriptEvalRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+type ScriptStartResponse struct {
+	WasRunning bool `json:"was_running"`
+}
+
+type ScriptStartRequest struct {
+	// ID of the script component instance.
+	ID int `json:"id"`
+}
+
+func (r *ScriptStartRequest) Method() string {
+	return "Script.Start"
+}
+
+func (r *ScriptStartRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+) (
+	*ScriptStartResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, credsCallback, r, resp)
+	return resp, raw, err
+}
+
+func (r *ScriptStartRequest) NewTypedResponse() *ScriptStartResponse {
+	return &ScriptStartResponse{}
+}
+
+func (r *ScriptStartRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+type ScriptStopResponse struct {
+	WasRunning bool `json:"was_running"`
+}
+
+type ScriptStopRequest struct {
+	// ID of the script component instance.
+	ID int `json:"id"`
+}
+
+func (r *ScriptStopRequest) Method() string {
+	return "Script.Stop"
+}
+
+func (r *ScriptStopRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+) (
+	*ScriptStopResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, credsCallback, r, resp)
+	return resp, raw, err
+}
+
+func (r *ScriptStopRequest) NewTypedResponse() *ScriptStopResponse {
+	return &ScriptStopResponse{}
+}
+
+func (r *ScriptStopRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+type ScriptListScript struct {
+	// ID of the script component instance.
+	ID int `json:"id"`
+
+	// Name of the script
+	Name string `json:"name"`
+
+	// Enable is true if the script runs by default on boot, false otherwise.
+	Enable bool `json:"enable"`
+
+	// Running is true if currently running, false otherwise
+	Running bool `json:"running"`
+}
+
+type ScriptListResponse struct {
+	// Scripts is a list of all created scripts
+	Scripts []ScriptListScript
+}
+
+func (r *ScriptListScript) Method() string {
+	return "Script.List"
+}
+
+func (r *ScriptListScript) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+) (
+	*ScriptListResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, credsCallback, r, resp)
+	return resp, raw, err
+}
+
+func (r *ScriptListScript) NewTypedResponse() *ScriptListResponse {
+	return &ScriptListResponse{}
+}
+
+func (r *ScriptListScript) NewResponse() any {
+	return r.NewTypedResponse()
+}
+
+type ScriptDeleteRequest struct {
+	// ID of the script component instance.
+	ID int `json:"id"`
+}
+
+func (r *ScriptDeleteRequest) Method() string {
+	return "Script.Delete"
+}
+
+func (r *ScriptDeleteRequest) Do(
+	ctx context.Context,
+	c mgrpc.MgRPC,
+	credsCallback mgrpc.GetCredsCallback,
+) (
+	*RPCEmptyResponse,
+	*frame.Response,
+	error,
+) {
+	resp := r.NewTypedResponse()
+	raw, err := Do(ctx, c, credsCallback, r, resp)
+	return resp, raw, err
+}
+
+func (r *ScriptDeleteRequest) NewTypedResponse() *RPCEmptyResponse {
+	return &RPCEmptyResponse{}
+}
+
+func (r *ScriptDeleteRequest) NewResponse() any {
+	return r.NewTypedResponse()
+}
