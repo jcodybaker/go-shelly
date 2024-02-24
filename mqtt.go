@@ -76,7 +76,9 @@ type MQTTConfig struct {
 	// ClientID identifies each MQTT client that connects to an MQTT brokers. Defaults if null to device id.
 	ClientID *string `json:"client_id"`
 	// User is the username.
-	User *string `json:"user"`
+	User *string `json:"user,omitempty"`
+	// Pass is the password.
+	Pass *string `json:"pass,omitempty"`
 	// SSL_CA determines the type of connection to make.
 	// If null, no TLS will be used.
 	// If `*` TLS connections will be made without server verification.
@@ -89,17 +91,17 @@ type MQTTConfig struct {
 	// RPC_NTF enables RPC notifications (NotifyStatus and NotifyEvent) to be published on
 	// <device_id|topic_prefix>/events/rpc (<topic_prefix> when a custom prefix is set, <device_id>
 	// otherwise). Default value: true.
-	RPC_NTF *bool `json:"rpc_ntf"`
+	RPC_NTF *bool `json:"rpc_ntf,omitempty"`
 	// Status_NTF Enables publishing the complete component status on
 	// <device_id|topic_prefix>/status/<component>:<id> (<topic_prefix> when a custom prefix is set,
 	// <device_id> otherwise). The complete status will be published if a signifficant change
 	// occurred. Default value: false
-	Status_NTF *bool `json:"status_ntf"`
+	Status_NTF *bool `json:"status_ntf,omitempty"`
 	// UseClientCert enables or disables usage of client certifactes to use MQTT with encription,
 	// default: false
-	UseClientCert *bool `json:"use_client_cert"`
+	UseClientCert *bool `json:"use_client_cert,omitempty"`
 	// EnableControl enables the MQTT control feature. Defalut value: true
-	EnableControl *bool `json:"enable_control"`
+	EnableControl *bool `json:"enable_control,omitempty"`
 }
 
 type MQTTGetStatusRequest struct{}
