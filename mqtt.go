@@ -123,24 +123,24 @@ func (ca *MQTT_SSL_CA) MarshalJSON() ([]byte, error) {
 // MQTTConfig configures MQTT for Shelly.
 type MQTTConfig struct {
 	// Enbable is true if MQTT connection is enabled, false otherwise
-	Enable *bool `json:"enabled"`
+	Enable *bool `json:"enabled,omitempty"`
 	// Server is the hostname of the MQTT server. Can be followed by port number - host:port
-	Server *string `json:"server"`
+	Server *NullString `json:"server,omitempty"`
 	// ClientID identifies each MQTT client that connects to an MQTT brokers. Defaults if null to device id.
-	ClientID *string `json:"client_id"`
+	ClientID *NullString `json:"client_id,omitempty"`
 	// User is the username.
 	User *string `json:"user,omitempty"`
 	// Pass is the password.
-	Pass *string `json:"pass,omitempty"`
+	Pass *NullString `json:"pass,omitempty"`
 	// SSL_CA determines the type of connection to make.
 	// If null, no TLS will be used.
 	// If `*` TLS connections will be made without server verification.
 	// If `user_ca.pem` TLS connection will be verified by the user-provided CA.
 	// If `ca.pem` TLS connections will be verified against the default CA list.
-	SSL_CA MQTT_SSL_CA `json:"ssl_ca"`
+	SSL_CA *MQTT_SSL_CA `json:"ssl_ca,omitempty"`
 	// TopicPrefix is the prefix of the topics on which device publish/subscribe. Limited to 300
 	// characters. Could not start with $ and #, +, %, ? are not allowed.
-	TopicPrefix *string `json:"topic_prefix"`
+	TopicPrefix *NullString `json:"topic_prefix,omitempty"`
 	// RPC_NTF enables RPC notifications (NotifyStatus and NotifyEvent) to be published on
 	// <device_id|topic_prefix>/events/rpc (<topic_prefix> when a custom prefix is set, <device_id>
 	// otherwise). Default value: true.
