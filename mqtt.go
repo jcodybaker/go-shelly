@@ -164,8 +164,8 @@ func (r *MQTTGetStatusRequest) Method() string {
 	return "MQTT.GetStatus"
 }
 
-func (r *MQTTGetStatusRequest) NewTypedResponse() *RPCEmptyResponse {
-	return &RPCEmptyResponse{}
+func (r *MQTTGetStatusRequest) NewTypedResponse() *MQTTStatus {
+	return &MQTTStatus{}
 }
 
 func (r *MQTTGetStatusRequest) NewResponse() any {
@@ -177,7 +177,7 @@ func (r *MQTTGetStatusRequest) Do(
 	c mgrpc.MgRPC,
 	credsCallback mgrpc.GetCredsCallback,
 ) (
-	*RPCEmptyResponse,
+	*MQTTStatus,
 	*frame.Response,
 	error,
 ) {
