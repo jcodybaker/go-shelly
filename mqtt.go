@@ -45,8 +45,8 @@ func (r *MQTTGetConfigRequest) Method() string {
 	return "MQTT.GetConfig"
 }
 
-func (r *MQTTGetConfigRequest) NewTypedResponse() *RPCEmptyResponse {
-	return &RPCEmptyResponse{}
+func (r *MQTTGetConfigRequest) NewTypedResponse() *MQTTConfig {
+	return &MQTTConfig{}
 }
 
 func (r *MQTTGetConfigRequest) NewResponse() any {
@@ -58,7 +58,7 @@ func (r *MQTTGetConfigRequest) Do(
 	c mgrpc.MgRPC,
 	credsCallback mgrpc.GetCredsCallback,
 ) (
-	*RPCEmptyResponse,
+	*MQTTConfig,
 	*frame.Response,
 	error,
 ) {
@@ -70,7 +70,7 @@ func (r *MQTTGetConfigRequest) Do(
 // MQTTConfig configures MQTT for Shelly.
 type MQTTConfig struct {
 	// Enbable is true if MQTT connection is enabled, false otherwise
-	Enable bool `json:"enabled"`
+	Enable *bool `json:"enabled"`
 	// Server is the hostname of the MQTT server. Can be followed by port number - host:port
 	Server *string `json:"server"`
 	// ClientID identifies each MQTT client that connects to an MQTT brokers. Defaults if null to device id.
@@ -89,17 +89,17 @@ type MQTTConfig struct {
 	// RPC_NTF enables RPC notifications (NotifyStatus and NotifyEvent) to be published on
 	// <device_id|topic_prefix>/events/rpc (<topic_prefix> when a custom prefix is set, <device_id>
 	// otherwise). Default value: true.
-	RPC_NTF bool `json:"rpc_ntf"`
-	// STATUS_NTF Enables publishing the complete component status on
+	RPC_NTF *bool `json:"rpc_ntf"`
+	// Status_NTF Enables publishing the complete component status on
 	// <device_id|topic_prefix>/status/<component>:<id> (<topic_prefix> when a custom prefix is set,
 	// <device_id> otherwise). The complete status will be published if a signifficant change
 	// occurred. Default value: false
-	STATUS_NTF bool `json:"status_ntf"`
+	Status_NTF *bool `json:"status_ntf"`
 	// UseClientCert enables or disables usage of client certifactes to use MQTT with encription,
 	// default: false
-	UseClientCert bool `json:"use_client_cert"`
+	UseClientCert *bool `json:"use_client_cert"`
 	// EnableControl enables the MQTT control feature. Defalut value: true
-	EnableControl bool `json:"enable_control"`
+	EnableControl *bool `json:"enable_control"`
 }
 
 type MQTTGetStatusRequest struct{}
