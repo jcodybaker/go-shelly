@@ -75,20 +75,20 @@ type MQTT_SSL_CA string
 
 const (
 	// MQTT_SSL_CA_NULL will disable the TLS on the MQTT connection
-	MQTT_SSL_CA_NULL = "null"
+	MQTT_SSL_CA_NULL MQTT_SSL_CA = "null"
 
 	// MQTT_SSL_CA_NOT_SET will not send a value for the `ssl_ca` property, leaving it unchanged.
-	MQTT_SSL_CA_NOT_SET = ""
+	MQTT_SSL_CA_NOT_SET MQTT_SSL_CA = ""
 
 	// MQTT_SSL_CA_NO_VERIFY will enable TLS but CA skip verification of the server certificate.
-	MQTT_SSL_CA_NO_VERIFY = "*"
+	MQTT_SSL_CA_NO_VERIFY MQTT_SSL_CA = "*"
 
 	// MQTT_SSL_CA_DEFAULT_CA will enable TLS with server verification against the default CA bundle.
-	MQTT_SSL_CA_DEFAULT_CA = "ca.pem"
+	MQTT_SSL_CA_DEFAULT_CA MQTT_SSL_CA = "ca.pem"
 
 	// MQTT_SSL_CA_USER_CA will enable TLS with server verification against the user-provided CA.
 	// See `Shelly.PutUserCA`.
-	MQTT_SSL_CA_USER_CA = "user_ca.pem"
+	MQTT_SSL_CA_USER_CA MQTT_SSL_CA = "user_ca.pem"
 )
 
 func (ca *MQTT_SSL_CA) UnmarshalJSON(b []byte) error {
@@ -96,16 +96,16 @@ func (ca *MQTT_SSL_CA) UnmarshalJSON(b []byte) error {
 	// MQTT_SSL_CA_NOT_SET is absent.
 	s := strings.TrimSpace(string(b))
 	switch s {
-	case MQTT_SSL_CA_NULL:
+	case string(MQTT_SSL_CA_NULL):
 		*ca = MQTT_SSL_CA_NULL
 		return nil
-	case `"` + MQTT_SSL_CA_NO_VERIFY + `"`:
+	case `"` + string(MQTT_SSL_CA_NO_VERIFY) + `"`:
 		*ca = MQTT_SSL_CA_NO_VERIFY
 		return nil
-	case `"` + MQTT_SSL_CA_DEFAULT_CA + `"`:
+	case `"` + string(MQTT_SSL_CA_DEFAULT_CA) + `"`:
 		*ca = MQTT_SSL_CA_DEFAULT_CA
 		return nil
-	case `"` + MQTT_SSL_CA_USER_CA + `"`:
+	case `"` + string(MQTT_SSL_CA_USER_CA) + `"`:
 		*ca = MQTT_SSL_CA_USER_CA
 		return nil
 	default:
@@ -114,7 +114,7 @@ func (ca *MQTT_SSL_CA) UnmarshalJSON(b []byte) error {
 }
 
 func (ca *MQTT_SSL_CA) MarshalJSON() ([]byte, error) {
-	if ca == nil || *ca == "" {
+	if ca == nil || *ca == MQTT_SSL_CA_NULL {
 		return []byte("null"), nil
 	}
 	return []byte(`"` + *ca + `"`), nil
@@ -137,7 +137,7 @@ type MQTTConfig struct {
 	// If `*` TLS connections will be made without server verification.
 	// If `user_ca.pem` TLS connection will be verified by the user-provided CA.
 	// If `ca.pem` TLS connections will be verified against the default CA list.
-	SSL_CA *MQTT_SSL_CA `json:"ssl_ca,omitempty"`
+	SSL_CA MQTT_SSL_CA `json:"ssl_ca,omitempty"`
 	// TopicPrefix is the prefix of the topics on which device publish/subscribe. Limited to 300
 	// characters. Could not start with $ and #, +, %, ? are not allowed.
 	TopicPrefix *NullString `json:"topic_prefix,omitempty"`
