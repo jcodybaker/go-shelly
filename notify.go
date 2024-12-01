@@ -12,6 +12,16 @@ func (ns *NotifyStatus) Method() string {
 	return "NotifyStatus"
 }
 
+func (r *NotifyStatus) UnmarshalJSON(b []byte) error {
+	var onlyTS = struct {
+		TS float64 `json:"ts"`
+	}
+	if err := json.Unmarshal(b, &onlyTS); err != nil {
+		return err
+	}
+	r.TS = onlyTS.TS
+	return r.ShellyGetStatusResponse.UnmarshalJSON(b)
+
 type NotifyEvent struct {
 	// TS is the UTC unix timestamp when the event report was generated.
 	TS float64 `json:"ts"`
