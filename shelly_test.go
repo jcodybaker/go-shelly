@@ -200,6 +200,7 @@ func TestShellyGetStatusResponseUnmarshall(t *testing.T) {
 				}
 			  }`,
 			expect: ShellyGetStatusResponse{
+				BLE: &BLEStatus{},
 				System: &SysStatus{
 					Mac:              "C8F09E87D088",
 					RestartRequired:  false,
@@ -440,6 +441,7 @@ func TestShellyGetStatusResponseUnmarshall(t *testing.T) {
 				}
 			  }`,
 			expect: ShellyGetStatusResponse{
+				BLE: &BLEStatus{},
 				System: &SysStatus{
 					Mac:              "C8F09E883630",
 					RestartRequired:  false,
@@ -514,6 +516,129 @@ func TestShellyGetStatusResponseUnmarshall(t *testing.T) {
 							F: Float64Ptr(96.2),
 						},
 					},
+				},
+			},
+		},
+		{
+			name: "shelly plus ht",
+			input: `{
+				"ble": {},
+				"cloud": {
+					"connected": true
+				},
+				"devicepower:0": {
+					"id": 0,
+					"battery": {
+						"V": 0.43,
+						"percent": 0
+					},
+					"external": {
+						"present": true
+					}
+				},
+				"ht_ui": {},
+				"humidity:0": {
+					"id": 0,
+					"rh": 59.4
+				},
+				"mqtt": {
+					"connected": true
+				},
+				"sys": {
+					"mac": "C049EF8BB8F8",
+					"restart_required": false,
+					"time": "09:29",
+					"unixtime": 1733063380,
+					"uptime": 6,
+					"ram_size": 247452,
+					"ram_free": 159420,
+					"fs_size": 458752,
+					"fs_free": 176128,
+					"cfg_rev": 15,
+					"kvs_rev": 0,
+					"webhook_rev": 2,
+					"available_updates": {},
+					"wakeup_reason": {
+						"boot": "deepsleep_wake",
+						"cause": "status_update"
+					},
+					"wakeup_period": 600,
+					"reset_reason": 8
+				},
+				"temperature:0": {
+					"id": 0,
+					"tC": 2.7,
+					"tF": 36.8
+				},
+				"wifi": {
+					"sta_ip": "192.168.1.199",
+					"status": "got ip",
+					"ssid": "PickleTown_Garage",
+					"rssi": -35
+				},
+				"ws": {
+					"connected": false
+				}
+			}`,
+			expect: ShellyGetStatusResponse{
+				BLE: &BLEStatus{},
+				System: &SysStatus{
+					Mac:              "C049EF8BB8F8",
+					RestartRequired:  false,
+					Time:             StrPtr("09:29"),
+					UnixTime:         IntPtr(1733063380),
+					Uptime:           6,
+					RamSize:          247452,
+					RamFree:          159420,
+					FS_Size:          458752,
+					FS_Free:          176128,
+					CfgRev:           15,
+					KVRev:            0,
+					WebhookRev:       IntPtr(2),
+					AvailableUpdates: &AvailableUpdates{},
+					ResetReason:      IntPtr(8),
+					WakeUpReason: &WakeUpReason{
+						Boot:  "deepsleep_wake",
+						Cause: "status_update",
+					},
+					WakeUpPeriod: 600,
+				},
+				DevicePowers: []*DevicePowerStatus{
+					{
+						ID: 0,
+						Battery: &DevicePowerBatteryStatus{
+							V:       Float64Ptr(0.43),
+							Percent: Float64Ptr(0),
+						},
+						External: &DevicePowerExternalStatus{
+							Present: true,
+						},
+					},
+				},
+				Humidities: []*HumidityStatus{
+					{
+						ID: 0,
+						RH: Float64Ptr(59.4),
+					},
+				},
+				Temperatures: []*TemperatureStatus{
+					{
+						ID: 0,
+						TC: Float64Ptr(2.7),
+						TF: Float64Ptr(36.8),
+					},
+				},
+				Cloud: &CloudStatus{
+					Connected: true,
+				},
+				MQTT: &MQTTStatus{
+					Connected: true,
+				},
+				Wifi: &WifiStatus{
+					StaIP:  StrPtr("192.168.1.199"),
+					Status: "got ip",
+					SSID:   StrPtr("PickleTown_Garage"),
+					RRSI:   Float64Ptr(-35),
 				},
 			},
 		},

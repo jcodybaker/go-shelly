@@ -74,11 +74,11 @@ type ShellyGetStatusResponse struct {
 
 	Lights []*LightStatus `json:"lights,omitempty"`
 
-	// DevicePowers []*DevicePowerStatus
+	DevicePowers []*DevicePowerStatus
 
-	// Humidities []*HumidityStatus
+	Humidities []*HumidityStatus
 
-	// Temperatures []*TemperatureStatus
+	Temperatures []*TemperatureStatus
 
 	// EMs []*EMStatus
 
@@ -184,6 +184,39 @@ func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
 			return err
 		}
 		r.Lights = append(r.Lights, &s)
+	}
+	for i := 0; ; i++ {
+		v, ok := theRest[fmt.Sprintf("devicepower:%d", i)]
+		if !ok {
+			break
+		}
+		var s DevicePowerStatus
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.DevicePowers = append(r.DevicePowers, &s)
+	}
+	for i := 0; ; i++ {
+		v, ok := theRest[fmt.Sprintf("humidity:%d", i)]
+		if !ok {
+			break
+		}
+		var s HumidityStatus
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Humidities = append(r.Humidities, &s)
+	}
+	for i := 0; ; i++ {
+		v, ok := theRest[fmt.Sprintf("temperature:%d", i)]
+		if !ok {
+			break
+		}
+		var s TemperatureStatus
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Temperatures = append(r.Temperatures, &s)
 	}
 	return nil
 }
@@ -684,9 +717,9 @@ type ShellyGetConfigResponse struct {
 
 	// DevicePowers []*DevicePowerConfig
 
-	// Humidities []*HumidityConfig
+	Humidities []*HumidityConfig
 
-	// Temperatures []*TemperatureConfig
+	Temperatures []*TemperatureConfig
 
 	// EMs []*EMConfig
 
@@ -792,6 +825,28 @@ func (r *ShellyGetConfigResponse) UnmarshalJSON(b []byte) error {
 			return err
 		}
 		r.Lights = append(r.Lights, &s)
+	}
+	for i := 0; ; i++ {
+		v, ok := theRest[fmt.Sprintf("humidity:%d", i)]
+		if !ok {
+			break
+		}
+		var s HumidityConfig
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Humidities = append(r.Humidities, &s)
+	}
+	for i := 0; ; i++ {
+		v, ok := theRest[fmt.Sprintf("temperature:%d", i)]
+		if !ok {
+			break
+		}
+		var s TemperatureConfig
+		if err := json.Unmarshal(v, &s); err != nil {
+			return err
+		}
+		r.Temperatures = append(r.Temperatures, &s)
 	}
 	return nil
 }

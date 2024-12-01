@@ -17,8 +17,8 @@ func (r *MQTTSetConfigRequest) Method() string {
 	return "MQTT.SetConfig"
 }
 
-func (r *MQTTSetConfigRequest) NewTypedResponse() *RPCEmptyResponse {
-	return &RPCEmptyResponse{}
+func (r *MQTTSetConfigRequest) NewTypedResponse() *SetConfigResponse {
+	return &SetConfigResponse{}
 }
 
 func (r *MQTTSetConfigRequest) NewResponse() any {
@@ -30,7 +30,7 @@ func (r *MQTTSetConfigRequest) Do(
 	c mgrpc.MgRPC,
 	credsCallback mgrpc.GetCredsCallback,
 ) (
-	*RPCEmptyResponse,
+	*SetConfigResponse,
 	*frame.Response,
 	error,
 ) {

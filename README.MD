@@ -2,7 +2,7 @@
 go-shelly is an unofficial native go client for the [Shelly Gen2 API](https://shelly-api-docs.shelly.cloud/gen2/). It compliments the [MongooseOS mgrpc library](https://pkg.go.dev/github.com/mongoose-os/mos/common/mgrpc).
 
 ## Maturity
-This library is currently in active development (as of December 2023). It has meaningful gaps in testing and functionality. At this stage there is no guarantee of backwards compatibility. Once the project reaches a stable state, I will begin crafting releases with semantic versioning. 
+This library is currently in active development (as of December 2024). It has meaningful gaps in testing and functionality. At this stage there is no guarantee of backwards compatibility. Once the project reaches a stable state, I will begin crafting releases with semantic versioning. 
 
 ## Usage
 In most cases, using the library is as simple building an RPC channel and calling .Do().  See the [go doc](https://pkg.go.dev/github.com/jcodybaker/go-shelly) and [Shelly Gen2 API documentation](https://shelly-api-docs.shelly.cloud/gen2/).
@@ -47,7 +47,7 @@ func main() {
     * It's not always clear which Go types should be used for JSON Numeric values. More validation is needed to ensure these types are correctly defined.
     * In contrast to Golang, the Shelly API appears differentiate between no-value and `null`. For example, in some cases (ex. Wifi.SetConfig), a JSON key with `null` value will clear the existing configuration, while omitting the key/value entirely leaves it untouched.
 * Complete API
-    * Known missing: Scripts, Outbound WebSockets, ModBus, Voltmeters, Humidity, Temperature, DevicePower, Smoke, EM(data), EM1(data), PM1, UI.
+    * Known missing: Scripts, Outbound WebSockets, ModBus, Voltmeters, Smoke, EM(data), EM1(data), PM1, UI.
     * Wrappers for easy software updates, and configuration of multi-line scripts and certificates.
 * CI testing / dependabot / release pipeline.
 
@@ -63,4 +63,4 @@ This library and its authors (Cody Baker - cody@codybaker.com) have no affiliati
 By downloading/using this open-source library you indemnify the authors of this project ([J Cody Baker](cody@codybaker.com)) from liability to the fullest extent permitted by law. There are real risks of fire, electricution, and/or bodily injury/death with these devices and connected equipment. Errors, bugs, or misinformation may exist in this software which cause your device and attached equipment to function in unexpected and dangerous ways. That risk is your responsibility. 
 
 ### License 
-Copyright 2023 [J Cody Baker](cody@codybaker.com) and licensed under the [MIT license](LICENSE.md).
+Copyright 2024 [J Cody Baker](cody@codybaker.com) and licensed under the [MIT license](LICENSE.md).
