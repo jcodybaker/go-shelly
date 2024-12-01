@@ -74,11 +74,11 @@ type ShellyGetStatusResponse struct {
 
 	Lights []*LightStatus `json:"lights,omitempty"`
 
-	DevicePowers []*DevicePowerStatus
+	DevicePowers []*DevicePowerStatus `json:"device_powers,omitempty"`
 
-	Humidities []*HumidityStatus
+	Humidities []*HumidityStatus `json:"humidities,omitempty"`
 
-	Temperatures []*TemperatureStatus
+	Temperatures []*TemperatureStatus `json:"temperatures,omitempty"`
 
 	// EMs []*EMStatus
 
@@ -717,9 +717,9 @@ type ShellyGetConfigResponse struct {
 
 	// DevicePowers []*DevicePowerConfig
 
-	Humidities []*HumidityConfig
+	Humidities []*HumidityConfig `json:"humidities,omitempty"`
 
-	Temperatures []*TemperatureConfig
+	Temperatures []*TemperatureConfig `json:"temperatures,omitempty"`
 
 	// EMs []*EMConfig
 
