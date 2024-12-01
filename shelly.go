@@ -141,10 +141,10 @@ func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
 		r.Ethernet = &s
 	}
 
-	for i := 0; ; i++ {
+	for i := 0; i < 4; i++ {
 		v, ok := theRest[fmt.Sprintf("switch:%d", i)]
 		if !ok {
-			break
+			continue
 		}
 		var s SwitchStatus
 		if err := json.Unmarshal(v, &s); err != nil {
@@ -152,10 +152,10 @@ func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
 		}
 		r.Switches = append(r.Switches, &s)
 	}
-	for i := 0; ; i++ {
+	for i := 0; i < 4; i++ {
 		v, ok := theRest[fmt.Sprintf("cover:%d", i)]
 		if !ok {
-			break
+			continue
 		}
 		var s CoverStatus
 		if err := json.Unmarshal(v, &s); err != nil {
@@ -163,10 +163,10 @@ func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
 		}
 		r.Covers = append(r.Covers, &s)
 	}
-	for i := 0; ; i++ {
+	for i := 0; i < 4; i++ {
 		v, ok := theRest[fmt.Sprintf("input:%d", i)]
 		if !ok {
-			break
+			continue
 		}
 		var s InputStatus
 		if err := json.Unmarshal(v, &s); err != nil {
@@ -174,10 +174,10 @@ func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
 		}
 		r.Inputs = append(r.Inputs, &s)
 	}
-	for i := 0; ; i++ {
+	for i := 0; i < 4; i++ {
 		v, ok := theRest[fmt.Sprintf("light:%d", i)]
 		if !ok {
-			break
+			continue
 		}
 		var s LightStatus
 		if err := json.Unmarshal(v, &s); err != nil {
@@ -185,10 +185,10 @@ func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
 		}
 		r.Lights = append(r.Lights, &s)
 	}
-	for i := 0; ; i++ {
+	for i := 0; i < 4; i++ {
 		v, ok := theRest[fmt.Sprintf("devicepower:%d", i)]
 		if !ok {
-			break
+			continue
 		}
 		var s DevicePowerStatus
 		if err := json.Unmarshal(v, &s); err != nil {
@@ -196,10 +196,10 @@ func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
 		}
 		r.DevicePowers = append(r.DevicePowers, &s)
 	}
-	for i := 0; ; i++ {
+	for i := 0; i < 4; i++ {
 		v, ok := theRest[fmt.Sprintf("humidity:%d", i)]
 		if !ok {
-			break
+			continue
 		}
 		var s HumidityStatus
 		if err := json.Unmarshal(v, &s); err != nil {
@@ -207,10 +207,10 @@ func (r *ShellyGetStatusResponse) UnmarshalJSON(b []byte) error {
 		}
 		r.Humidities = append(r.Humidities, &s)
 	}
-	for i := 0; ; i++ {
+	for i := 0; i < 4; i++ {
 		v, ok := theRest[fmt.Sprintf("temperature:%d", i)]
 		if !ok {
-			break
+			continue
 		}
 		var s TemperatureStatus
 		if err := json.Unmarshal(v, &s); err != nil {
@@ -782,10 +782,10 @@ func (r *ShellyGetConfigResponse) UnmarshalJSON(b []byte) error {
 		r.Ethernet = &s
 	}
 
-	for i := 0; ; i++ {
+	for i := 0; i < 4; i++ {
 		v, ok := theRest[fmt.Sprintf("switch:%d", i)]
 		if !ok {
-			break
+			continue
 		}
 		var s SwitchConfig
 		if err := json.Unmarshal(v, &s); err != nil {
@@ -793,10 +793,10 @@ func (r *ShellyGetConfigResponse) UnmarshalJSON(b []byte) error {
 		}
 		r.Switches = append(r.Switches, &s)
 	}
-	for i := 0; ; i++ {
+	for i := 0; i < 4; i++ {
 		v, ok := theRest[fmt.Sprintf("cover:%d", i)]
 		if !ok {
-			break
+			continue
 		}
 		var s CoverConfig
 		if err := json.Unmarshal(v, &s); err != nil {
@@ -804,10 +804,10 @@ func (r *ShellyGetConfigResponse) UnmarshalJSON(b []byte) error {
 		}
 		r.Covers = append(r.Covers, &s)
 	}
-	for i := 0; ; i++ {
+	for i := 0; i < 4; i++ {
 		v, ok := theRest[fmt.Sprintf("input:%d", i)]
 		if !ok {
-			break
+			continue
 		}
 		var s InputConfig
 		if err := json.Unmarshal(v, &s); err != nil {
@@ -815,10 +815,10 @@ func (r *ShellyGetConfigResponse) UnmarshalJSON(b []byte) error {
 		}
 		r.Inputs = append(r.Inputs, &s)
 	}
-	for i := 0; ; i++ {
+	for i := 0; i < 4; i++ {
 		v, ok := theRest[fmt.Sprintf("light:%d", i)]
 		if !ok {
-			break
+			continue
 		}
 		var s LightConfig
 		if err := json.Unmarshal(v, &s); err != nil {
@@ -826,10 +826,10 @@ func (r *ShellyGetConfigResponse) UnmarshalJSON(b []byte) error {
 		}
 		r.Lights = append(r.Lights, &s)
 	}
-	for i := 0; ; i++ {
+	for i := 0; i < 4; i++ {
 		v, ok := theRest[fmt.Sprintf("humidity:%d", i)]
 		if !ok {
-			break
+			continue
 		}
 		var s HumidityConfig
 		if err := json.Unmarshal(v, &s); err != nil {
@@ -837,10 +837,10 @@ func (r *ShellyGetConfigResponse) UnmarshalJSON(b []byte) error {
 		}
 		r.Humidities = append(r.Humidities, &s)
 	}
-	for i := 0; ; i++ {
+	for i := 0; i < 4; i++ {
 		v, ok := theRest[fmt.Sprintf("temperature:%d", i)]
 		if !ok {
-			break
+			continue
 		}
 		var s TemperatureConfig
 		if err := json.Unmarshal(v, &s); err != nil {
