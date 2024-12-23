@@ -198,7 +198,7 @@ type BTHomeGetObjectInfosRequest struct {
 }
 
 func (r *BTHomeGetObjectInfosRequest) Method() string {
-	return "BTHome.StartDiscovery"
+	return "BTHome.GetObjectInfos"
 }
 
 func (r *BTHomeGetObjectInfosRequest) NewTypedResponse() *BTHomeGetObjectInfosResponse {
