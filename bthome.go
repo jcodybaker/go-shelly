@@ -164,7 +164,7 @@ type BTHomeStartDeviceDiscoveryRequest struct {
 }
 
 func (r *BTHomeStartDeviceDiscoveryRequest) Method() string {
-	return "BTHome.StartDiscovery"
+	return "BTHome.StartDeviceDiscovery"
 }
 
 func (r *BTHomeStartDeviceDiscoveryRequest) NewTypedResponse() *BTHomeStartDeviceDiscoveryResponse {
@@ -242,5 +242,5 @@ type BTHomeGetObjectInfo struct {
 
 	Type string `json:"type,omitempty"`
 
-	Unit string	`json:"unit,omitempty"`
+	Unit string `json:"unit,omitempty"`
 }
