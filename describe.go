@@ -88,7 +88,7 @@ func AppToDeviceSpecs(mdnsApp, profile string) (DeviceSpecs, error) {
 			BluetoothLowEnergy: true,
 			UI:                 true,
 		}, nil
-	case "PlugUS", "PlugUK", "PlugS", "PlugIT":
+	case "PlugUS", "PlugUK", "PlugS", "PlugIT", "PlugMG3":
 		if profile != "" {
 			return DeviceSpecs{}, ErrUnknownDeviceProfile
 		}
